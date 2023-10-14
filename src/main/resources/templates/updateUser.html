@@ -79,18 +79,18 @@
                                     <div class="col-lg-6 col-md-12">
                                         <div class="form-group c_form_group">
                                             <label>Nouveau Mot de passe</label>
-                                            <input name="password" type="password" class="form-control" placeholder="Nouveau Mot de passe">
+                                            <input id="passwordInput" name="password"  type="password" class="form-control" placeholder="Nouveau Mot de passe" >
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-12">
                                         <div class="form-group c_form_group">
                                             <label>Confirmation de mot de passe</label>
-                                            <input name="confirmation" type="password" class="form-control" placeholder="Confirmation de mot de passe">
+                                            <input id="confirmationInput" name="confirmation" type="password" class="form-control" placeholder="Confirmation de mot de passe">
                                         </div>
                                     </div>
                                       
                                 </div>
-                                <button type="submit" class="btn btn-primary theme-bg gradient">Ajouter</button>
+                                <button id="submitButton" type="submit" class="btn btn-primary theme-bg gradient" disabled>Modifier</button>
                             </form>
                         </div>              
                     </div>                
@@ -105,4 +105,6 @@
 
 </div>
 </body>
+<<script th:src="@{/js/update.js}"></script>>
+
 </html>
