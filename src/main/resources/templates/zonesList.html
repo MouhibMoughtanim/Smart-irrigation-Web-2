@@ -1,0 +1,104 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<html lang="en">
+
+<head th:replace="fragments/header :: header">
+</head>
+<body>
+    
+<div id="body" class="theme-cyan">
+
+    <div th:replace="fragments/loader :: loader">
+	</div>
+
+
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+
+    <div id="wrapper">
+
+		<nav th:replace="fragments/navbar :: navbar">
+		</nav>
+
+        <div th:replace="fragments/sidebar :: sidebar">
+        </div>
+
+
+        
+        <!-- Main body part  -->
+        <div id="main-content">
+            <div class="container-fluid">
+                <!-- Page header section  -->
+                <div class="block-header">
+                    <div class="row clearfix">
+                        <div class="col-md-5 col-sm-12">
+                            <h1>Liste des zones</h1>
+                        </div>            
+                        <div class="col-md-7 col-sm-12 text-md-right">
+                            <div class="d-flex align-items-center justify-content-md-end mt-4 mt-md-0 flex-wrap vivify pullUp delay-550">
+                                
+                                <div class="mb-3 mb-xl-0">
+                                    <a th:href="@{/zones/new/{id} (id=${espace_id})}" class="btn btn-dark">Créer une zone</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-custom spacing5 mb-0">
+                                        <thead>
+                                            <tr> 
+                                                <th>Photo</th>
+                                                <th>Libelle</th>
+                                                <th>Superficie</th>
+                                                <th>Type de sol</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="zone : ${zones}">
+                                                <td class="w60">
+                                                    <style>
+                                                    	.rounded{
+															min-width : 200px
+														}
+                                                    </style>
+                                                    <img th:src="${zone.image}" data-placement="top" title="" alt="plante" class="w35 rounded">
+                                                </td>
+                                                <td>
+                                                    <p th:text="${zone.libelle}"></p>
+                                                </td>
+                                                <td>
+                                                	<p th:text="${zone.superficie}  + ' m²'"></p>
+                                                </td>
+                                                <td>
+                                                	<p th:text="${zone.type.name}"></p>
+                                                </td>
+                                                <td><a th:href="@{/zones/{id}/details (id=${zone.id})}" class="btn btn-default">Détails</a>
+                                                <a th:href="@{/zones/plantage/{id}  (id=${zone.id})}" class="btn btn-success">Planter</a>
+                                                <a th:href="@{/zones/{id}/boitiers (id=${zone.id})}" class="btn btn-info">Boitier</a></td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div th:replace="fragments/footer :: footer">
+
+</div>
+</body>
+</html>

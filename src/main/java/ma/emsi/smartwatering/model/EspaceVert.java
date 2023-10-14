@@ -22,11 +22,18 @@ public class EspaceVert {
 	private long id;
 	private String libelle;
 	
-	@Lob
-    @Column(name = "photo", columnDefinition="BLOB")
-	private byte[] image;
+    @Column(name = "photo")
+	private String image;
 	
 	@OneToMany
-	@JoinColumn(name="espace_id")
+	@JoinColumn(name="espace_id", nullable = true)
 	private List<Zone> zones;
+	
+	public boolean equals(EspaceVert e) {
+		 
+        if (e.getId() == this.getId()) {
+            return true;
+        }
+		return false;
+    }
 }

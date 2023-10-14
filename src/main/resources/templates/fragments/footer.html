@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+</head>
+<body>
+    
+
+<div th:fragment="footer">
+
+<!-- Javascript -->
+<script th:src="@{/bundles/libscripts.bundle.js}"></script>    
+<script th:src="@{/bundles/vendorscripts.bundle.js}"></script>
+
+<!-- Vedor js file and create bundle with grunt  --> 
+<script th:src="@{/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js}"></script>
+
+<!-- Project core js file minify with grunt --> 
+<script th:src="@{/bundles/mainscripts.bundle.js}"></script>
+</div>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<html lang="en">
+
+<head th:replace="fragments/header :: header">
+</head>
+<body>
+    
+<div id="body" class="theme-cyan">
+
+    <div th:replace="fragments/loader :: loader">
+	</div>
+
+
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+
+    <div id="wrapper">
+
+		<nav th:replace="fragments/navbar :: navbar">
+		</nav>
+
+        <div th:replace="fragments/sidebar :: sidebar">
+        </div>
+
+
+        
+        <!-- Main body part  -->
+        <div id="main-content">
+            <div class="container-fluid">
+                <!-- Page header section  -->
+                <div class="block-header">
+                    <div class="row clearfix">
+                        <div class="col-lg-4 col-md-12 col-sm-12">
+                            <h1>Nouvel espace</h1>
+                        </div>            
+                        
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-xl-8 col-lg-8 col-md-7">
+                        <div class="card">
+                        <form sec:authorize="hasRole('ROLE_USER')"  th:action="@{/farmer/espaces/new}" th:method="POST" enctype="multipart/form-data" class="body">
+                                <div class="row clearfix">
+                                    
+                                    <div class="col-lg-6 col-md-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Libelle Espace vert</label>
+                                            <input name="libelle" type="text" class="form-control" placeholder="libelle espace vert">
+                                        </div>
+                                    </div>
+									<div class="col-lg-6 col-md-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Photo Espace Vert</label>
+                                            <input name="image" accept="image/png, image/jpeg" type="file" class="form-control" placeholder="Photo espace vert">
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    
+                                    
+                                      
+                                </div>
+                                <button type="submit" class="btn btn-primary theme-bg gradient">Ajouter</button>
+                            </form>
+                            <form sec:authorize="hasRole('ROLE_ADMIN')"  th:action="@{/espaces/new}" th:method="POST" enctype="multipart/form-data" class="body">
+                                <div class="row clearfix">
+                                    
+                                    <div class="col-lg-6 col-md-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Libelle Espace vert</label>
+                                            <input name="libelle" type="text" class="form-control" placeholder="libelle espace vert">
+                                        </div>
+                                    </div>
+									<div class="col-lg-6 col-md-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Photo Espace Vert</label>
+                                            <input name="image" accept="image/png, image/jpeg" type="file" class="form-control" placeholder="Photo espace vert">
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    
+                                    
+                                      
+                                </div>
+                                <button type="submit" class="btn btn-primary theme-bg gradient">Ajouter</button>
+                            </form>
+                        </div>              
+                    </div>                
+                </div>
+</div >
+        </div>
+
+    </div>
+
+</div>
+<div th:replace="fragments/footer :: footer">
+
+</div>
+</body>
+</html>

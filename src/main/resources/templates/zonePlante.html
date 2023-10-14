@@ -1,0 +1,87 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<html lang="en">
+
+<head th:replace="fragments/header :: header">
+</head>
+<body>
+    
+<div id="body" class="theme-cyan">
+
+    <div th:replace="fragments/loader :: loader">
+	</div>
+
+
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+
+    <div id="wrapper">
+
+		<nav th:replace="fragments/navbar :: navbar">
+		</nav>
+
+        <div th:replace="fragments/sidebar :: sidebar">
+        </div>
+
+
+        
+        <!-- Main body part  -->
+        <div id="main-content">
+            <div class="container-fluid">
+                <!-- Page header section  -->
+                <div class="block-header">
+                    <div class="row clearfix">
+                        <div class="col-lg-4 col-md-12 col-sm-12">
+                            <h1>Arrosage d'une plante dans une zone</h1>
+                        </div>            
+                        
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="header">
+                                <h2>Arrosage</h2>
+                            </div>
+                            <form th:action="@{/zones/plantage/{id} (id=${zone_id})}" method="post" class="body">
+                                <div class="row clearfix">
+                                    
+                                    <div class="col-lg-6 col-md-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Plante</label>
+                                            <select class="form-control" name="plante_id">
+                                                <option th:each="plante : ${plantes}" th:value="${plante.id}" th:text=${plante.libelle}></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Quantité</label>
+                                            <input name="quantity" type="number" class="form-control" placeholder="Quantité">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Date d'arrosage</label>
+                                            <input name="date" type="date" class="form-control" placeholder="Date d'arrosage...">
+                                        </div>
+                                    </div>
+                                      
+                                </div>
+                                <button type="submit" class="btn btn-primary theme-bg gradient">Ajouter</button>
+                            </form>
+                        </div>              
+                    </div>                
+                </div>
+</div >
+        </div>
+
+    </div>
+
+</div>
+<div th:replace="fragments/footer :: footer">
+
+</div>
+</body>
+</html>

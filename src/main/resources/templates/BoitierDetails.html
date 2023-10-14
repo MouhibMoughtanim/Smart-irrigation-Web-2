@@ -1,0 +1,165 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<html lang="en">
+
+<head th:replace="fragments/header :: header">
+</head>
+<body>
+    
+<div id="body" class="theme-cyan">
+
+    <div th:replace="fragments/loader :: loader">
+	</div>
+
+
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+
+    <div id="wrapper">
+
+		<nav th:replace="fragments/navbar :: navbar">
+		</nav>
+
+        <div th:replace="fragments/sidebar :: sidebar">
+        </div>
+
+
+        
+        <!-- Main body part  -->
+        <div id="main-content">
+			<div class="container-fluid">
+                <!-- Page header section  -->
+                <div class="block-header">
+                    <div class="row clearfix">
+                        <div class="col-lg-4 col-md-12 col-sm-12">
+                            <h1>Info Boitier!</h1>
+                        </div>            
+                        <div class="col-lg-8 col-md-12 col-sm-12 text-lg-right">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-md-12">
+                        <div class="card social theme-bg gradient">
+                            <div class="profile-header d-sm-flex justify-content-between justify-content-center">
+                                <div class="d-flex">
+                                    <div class="mr-3">
+                                    	<style>
+                                    		.rounded {
+												min-width: 120px
+											}
+                                    	</style>
+                                        <img th:src="${boitier.image}" class="rounded" alt="">
+                                    </div>
+                                    <div class="details">
+                                        <h5 class="mb-0" th:text="${'Reference de la Boitier : ' + boitier.ref}"></h5>
+                                        <span class="text-light" th:text="${'Type : ' + boitier.type}"></span>
+                                        <p class="mb-0" ><span th:text="${'Code : '+ boitier.code}"></span></p>
+                                    </div>                                
+                                
+                                </div>
+                            <div>
+                                    <a th:href="@{/boitiers/update/{id} (id=${boitier.id})}" class="btn btn-default">Modifier</a>
+                                </div>
+                            </div>
+                        </div>                    
+                    </div>
+                    <div class="col-lg-3 col-md-5">
+                    <div class="card">
+                            <div class="header">
+                                <h2>Installation de capteur</h2>
+                            </div>
+                            <div class="body">
+                            <form th:action="@{/boitiers/{id}/capteur (id=${boitier.id})}" method="post" class="body"><input type="hidden" name="_csrf" value="024b210c-eda8-41a5-9eba-e932bc5857af">
+                                <div class="row clearfix">
+                                    
+                                    <div class="col-lg-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Capteurs</label>
+                                            <select class="form-control" name="capteur_id">	
+                                                <option th:each="capteur : ${capteurs}" th:value="${capteur.id}" 
+                                                th:text="${capteur.type}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-lg-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Branche</label>
+                                            <input name="branche" type="text" class="form-control" placeholder="branche ...'">
+                                        </div>
+                                    </div>
+									<div class="col-lg-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Fonctionnel</label>
+                                            <select class="form-control" name="fonctionnel">	
+                                                <option value="true" selected="selected">Oui</option>
+                                                <option value="false">nom</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <button type="submit" class="btn btn-success">Enregister</button>
+                            </form>
+                            </div>
+                        </div>                   
+                    </div> 
+                    <div class="col-xl-9 col-lg-4 col-md-5">
+                        <div class="card">
+                            <div class="header">
+                                <h2>Plantes</h2>
+                                
+                            </div>
+                            <div class="body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Photo</th>
+                                                <th>Type</th>
+                                                <th>Branche</th>
+                                                <th>Fonctionnel</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="connection : ${boitier.connections}">
+                                            	<style>
+                                            		.rounded {
+														max-width : 120px
+													}
+                                            	</style>
+                                            
+                                                <td scope="row"><div class="mr-3">
+                                        			<img th:src="${connection.capteur.image}" class="rounded" alt=""/>
+		                                    	</td>
+                                                <td th:text="${connection.capteur.type}"></td>
+                                                <td th:text="${connection.branche}"></td>
+                                                <td th:text="${connection.fonctionnel} ? 'Oui' : 'Nom'" ></td>
+                                                <td>
+                                                <a th:unless="${connection.fonctionnel}" th:href="@{/boitiers/{boitier_id}/on/{id} (boitier_id=${boitier.id}, id=${connection.id})}" style="color: white;" class="btn btn-success">Activer</a>
+                                                <a th:if="${connection.fonctionnel}" th:href="@{/boitiers/{boitier_id}/off/{id} (boitier_id=${boitier.id}, id=${connection.id})}" style="color: white;" class="btn btn-danger">Désactiver</a>
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>                    
+                    </div>             
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div th:replace="fragments/footer :: footer">
+
+</div>
+</body>
+</html>

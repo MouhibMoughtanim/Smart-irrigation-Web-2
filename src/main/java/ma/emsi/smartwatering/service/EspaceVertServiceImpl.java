@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ma.emsi.smartwatering.model.AppUser;
 import ma.emsi.smartwatering.model.EspaceVert;
 import ma.emsi.smartwatering.repository.EspaceVertRepository;
 
@@ -28,6 +29,16 @@ public class EspaceVertServiceImpl implements EspaceVertService{
 	@Override
 	public EspaceVert get(long id) {
 		return espaceRepo.getById(id);
+	}
+
+	@Override
+	public void supprimer(long id) {
+		espaceRepo.deleteById(id);
+	}
+
+	@Override
+	public List<EspaceVert> getNonAssignedSpaces() {
+		return espaceRepo.getNonAssignedSpaces();
 	}
 
 }

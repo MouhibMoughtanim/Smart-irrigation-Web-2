@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import ma.emsi.smartwatering.model.AppUser;
 import ma.emsi.smartwatering.model.EspaceVert;
 
 @Service
@@ -14,4 +15,8 @@ public interface EspaceVertService {
 	List<EspaceVert> getEspacesVerts();
 
 	EspaceVert get(long id);
+
+	void supprimer(long id);
+
+	List<EspaceVert> getNonAssignedSpaces();
 }

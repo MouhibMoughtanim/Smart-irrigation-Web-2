@@ -1,0 +1,165 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<html lang="en">
+
+<head th:replace="fragments/header :: header">
+</head>
+
+<body>
+    
+<div id="body" class="theme-cyan">
+
+    <div th:replace="fragments/loader :: loader">
+	</div>
+
+
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+
+    <div id="wrapper">
+
+		<nav th:replace="fragments/navbar :: navbar">
+		</nav>
+
+        <div th:replace="fragments/sidebar :: sidebar">
+        </div>
+
+
+        
+        <!-- Main body part  -->
+        <div id="main-content">
+            <div class="container-fluid">
+                <!-- Page header section  -->
+                <div class="block-header">
+                    <div class="row clearfix">
+                        <div class="col-md-5 col-sm-12">
+                            <h1>Liste Tous les espaces verts</h1>
+                        </div>            
+                        <div class="col-md-7 col-sm-12 text-md-right">
+                            <div class="d-flex align-items-center justify-content-md-end mt-4 mt-md-0 flex-wrap vivify pullUp delay-550">
+                                
+                                <div class="mb-3 mb-xl-0">
+                                    <a href="/espaces/new" class="btn btn-dark">Créer un Espace</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row clearfix">
+                    <div class="col-12">
+                        <div class="card bg-clear">
+                            <div class="header">
+                                
+                            </div>
+                            <div class="body">
+                                <div class="tab-content mt-0">
+                                    <div class="tab-pane show active" id="All">
+                                        <div class="row clearfix">
+                                        <div th:each="espace : ${non_assignedEspace}" class="col-md-3 col-sm-6">
+                                                <div   class="card contact_card">
+                                                    <div class="header">
+                                                        <ul class="header-dropdown dropdown">
+                                                            <li class="dropdown">
+                                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                                                <ul class="dropdown-menu theme-bg gradient">
+                                                                    <li><a href="/users/espaces">Responsable</a></li>
+                                                                    <li><a th:href="@{/zones/{id} (id=${espace.id})}">Liste des zones</a></li>
+                                                                    <li><a th:href="@{/zones/new/{id} (id=${espace.id})}">Ajouter zone</a></li>
+                                                                    
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div  class="body text-center">
+                                                    	<style>
+                                                    		.espaceImg {
+															 height: 150px;
+															  max-width: 200px;
+															}
+                                                    	</style>
+                                                        <div class="circle">
+                                                            <img class="espaceImg" th:src="${espace.image}" alt="Espace Vert">
+                                                        </div>
+                                                        <h6 class="mt-3 mb-0" th:text="${espace.libelle}"></h6>
+                                                        <span>Non-assignés</span>
+                                                        <ul class="mt-3 list-unstyled d-flex justify-content-center">
+                                                            
+                                                        </ul>
+                                                        
+                                                        
+                                                        <form th:method="post" th:action="@{/espaces/delete/{id} (id=${espace.id})}">
+                                                        <a th:href="@{/espaces/update/{id} (id=${espace.id})}" class="btn btn-default btn-sm">Modifier</a>
+                                                        <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                                                        </form>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div th:each="espace : ${assignedEspace}" class="col-md-3 col-sm-6">
+                                                <div   class="card contact_card">
+                                                    <div class="header">
+                                                        <ul class="header-dropdown dropdown">
+                                                            <li class="dropdown">
+                                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+                                                                <ul class="dropdown-menu theme-bg gradient">
+                                                                    <li><a th:href="@{/espaces/responsable/{id} (id=${espace.id})}">Responsable</a></li>
+                                                                    <li><a th:href="@{/zones/{id} (id=${espace.id})}">Liste des zones</a></li>
+                                                                    <li><a th:href="@{/zones/new/{id} (id=${espace.id})}">Ajouter zone</a></li>
+                                                                    
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div  class="body text-center">
+                                                    	<style>
+                                                    		.espaceImg {
+															 height: 150px;
+															  max-width: 200px;
+															}
+                                                    	</style>
+                                                        <div class="circle">
+                                                            <img class="espaceImg" th:src="${espace.image}" alt="Espace Vert">
+                                                        </div>
+                                                        <h6 class="mt-3 mb-0" th:text="${espace.libelle}"></h6>
+                                                        <span>Assignés</span>
+                                                        <ul class="mt-3 list-unstyled d-flex justify-content-center">
+                                                            
+                                                        </ul>
+                                                        
+                                                        
+                                                        <form th:method="post" th:action="@{/espaces/delete/{id} (id=${espace.id})}">
+                                                        <a th:href="@{/espaces/update/{id} (id=${espace.id})}" class="btn btn-default btn-sm">Modifier</a>
+                                                        <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                                                        </form>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+  
+
+
+
+
+
+<div th:replace="fragments/footer :: footer">
+
+
+
+</div>
+</body>
+</html>

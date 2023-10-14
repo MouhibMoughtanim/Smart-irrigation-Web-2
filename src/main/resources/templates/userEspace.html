@@ -1,0 +1,117 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<html lang="en">
+
+<head th:replace="fragments/header :: header">
+</head>
+<body>
+    
+<div id="body" class="theme-cyan">
+
+    <div th:replace="fragments/loader :: loader">
+	</div>
+
+
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+
+    <div id="wrapper">
+
+		<nav th:replace="fragments/navbar :: navbar">
+		</nav>
+
+        <div th:replace="fragments/sidebar :: sidebar">
+        </div>
+
+
+        
+        <!-- Main body part  -->
+        <div id="main-content">
+            <div class="container-fluid">
+                <!-- Page header section  -->
+                <div class="block-header">
+                    <div class="row clearfix">
+                        <div class="col-lg-4 col-md-12 col-sm-12">
+                            <h1>Responsables des espaces verts!</h1>
+                            <span>Designer les responsables des espaces verts</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    
+                    <div class="col-xl-4 col-lg-4 col-md-5">
+                        <div class="card">
+                            <div class="header">
+                                <h2>Responsable d'espace vert</h2>
+                            </div>
+                            <form th:action="@{/users/espaces}" th:method="POST" class="body">
+                                <div class="row clearfix">
+                                	<div class="col-md-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Utilisateur</label>
+                                            <select name="user_id"  class="form-control">
+                                                <option th:each="user: ${users}" th:value="${user.id}" th:text="${user.username} +' - '+ ${user.role}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Esapce vert</label>
+                                            <select name="espace_id" class="form-control">
+                                                <option th:each="espace: ${espaces}" th:value="${espace.id}" th:text="${espace.libelle}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-4 col-sm-12">
+                                        <div class="mb-2">
+                                            <button type="submit" class="btn btn-primary theme-bg gradient">Désigner</button>
+                                        </div>                                    
+                                    </div>
+                                </div>
+                            </form>
+                        </div>                    
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-7">
+                        <div class="card">
+                            <div class="header">
+                                <h2>Liste des responsabes des espaces verts</h2>                            
+                            </div>
+                            <div class="body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>#id utilsiateur</th>
+                                                <th>Nom d'utilisateur</th>
+                                                <th>#id Espace Vert</th>
+                                                <th>Libelle Espace</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        	<tr th:each="instance : ${usersEspaces}">
+											    <td th:text="${instance.value.id}"></td>
+											    <td th:text="${instance.value.username}"></td>
+											    <td th:text="${instance.key.id}"></td>
+											    <td th:text="${instance.key.libelle}"></td>
+											    <td><a class="btn btn-info" th:href="@{/users/{user_id}/espace/{espace_id} (user_id=${instance.value.id}, espace_id=${instance.key.id})}">Libérer</a></td>
+											</tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>             
+                    </div>                
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div th:replace="fragments/footer :: footer">
+
+</div>
+</body>
+</html>

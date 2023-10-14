@@ -1,55 +1,63 @@
 package ma.emsi.smartwatering.security;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import lombok.RequiredArgsConstructor;
-import ma.emsi.smartwatering.filter.CustomAuthentificationFilter;
-import ma.emsi.smartwatering.filter.CustomAuthorisationFilter;
+import ma.emsi.smartwatering.service.AppUserService;
 
-@Configuration @EnableWebSecurity @RequiredArgsConstructor
+@Configuration @EnableWebSecurity 
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
-	private static final String GET = "get";
-	private static final String POST = "post";
-	private final UserDetailsService userDetailsService;
-	private final BCryptPasswordEncoder bCryptPasswordEncoder;
-	
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
-	}
-
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		CustomAuthentificationFilter customAuthentificationFilter = new CustomAuthentificationFilter(authenticationManagerBean());
-		customAuthentificationFilter.setFilterProcessesUrl("/api/login");
-		http.csrf().disable();
-		http.authorizeRequests().antMatchers("/api/login**", "/api/users/token/refresh").permitAll();
-		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		http.authorizeRequests().antMatchers(GET, "/api/farmer**").authenticated();
-		http.authorizeRequests().antMatchers(GET, "/api/users").hasAnyAuthority("ROLE_ADMIN");
-		http.authorizeRequests().antMatchers(POST, "/api/users**").hasAnyAuthority("ROLE_ADMIN");
-		http.authorizeRequests().antMatchers(GET, "/api/espace**").hasAnyAuthority("ROLE_ADMIN");
-		http.authorizeRequests().antMatchers(POST, "/api/espace**").hasAnyAuthority("ROLE_ADMIN");
-		http.authorizeRequests().anyRequest().authenticated();
-		http.addFilter(customAuthentificationFilter);
-		http.addFilterBefore(new CustomAuthorisationFilter(), UsernamePasswordAuthenticationFilter.class);
-	}
-
+	@Autowired
+	AppUserService userService;
+	@Autowired
+	PasswordEncoder passwordEncoder;
+ 
 	@Bean
-	@Override
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-		return super.authenticationManagerBean();
+	public DaoAuthenticationProvider authenticationProvider() {
+		DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
+		auth.setUserDetailsService(userService);
+		auth.setPasswordEncoder(passwordEncoder);
+		return auth;
 	}
 	
+	@Override
+	public void configure(AuthenticationManagerBuilder auth) throws
+	Exception {
+		auth.authenticationProvider(authenticationProvider());
+	}
+	
+	 @Override
+	protected void configure(HttpSecurity http) throws Exception {
+		 http.formLogin().defaultSuccessUrl("/", true);
+			http.httpBasic()
+		 .authenticationEntryPoint(new NoPopupBasicAuthenticationEntryPoint())
+		 .and().authorizeRequests()
+		 	.mvcMatchers("/inscription","/register", "/plantes", "/uploads", "/grandeurs/**", "/uploads/**","/","/login", "/logout", "/images/**", "/vendor/**",
+		 			"/js/**", "/bundles/**", "/charts/**", "/vendor/**", "/css/**").permitAll()
+		 	.mvcMatchers("/plantes",  "/zones/grandeurs/**","/realtime/**","/plantes/new", "/farmer", "/farmer/**", "/api/farmer/**").hasRole("USER")
+		 	.mvcMatchers("/plantes", "/zones/grandeurs/**", "/plantes/**","/**", "/api/**").hasRole("ADMIN")
+		 	.anyRequest().authenticated()
+		 	.and()
+		 	.formLogin().loginPage("/login")
+		 	.and()
+		 	.logout()
+		 	.clearAuthentication(true).invalidateHttpSession(true)
+		 	.and()
+		 	.csrf().disable();
+	 }
+	 
+	 
+	 
+
 }

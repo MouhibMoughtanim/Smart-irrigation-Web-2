@@ -12,4 +12,6 @@ public interface ZoneService {
 	Zone get(long id);
 	
 	List<Zone> getZones();
+
+	List<Zone> getZoneByUserId(long id);
 }

@@ -1,0 +1,180 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<html lang="en">
+
+<head th:replace="fragments/header :: header">
+</head>
+<body>
+    
+<div id="body" class="theme-cyan">
+
+    <div th:replace="fragments/loader :: loader">
+	</div>
+
+
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+
+    <div id="wrapper">
+
+		<nav th:replace="fragments/navbar :: navbar">
+		</nav>
+
+        <div th:replace="fragments/sidebar :: sidebar">
+        </div>
+
+
+        
+        <!-- Main body part  -->
+        <div id="main-content">
+            <div class="container-fluid">
+                <!-- Page header section  -->
+                <div class="block-header">
+                    <div class="row clearfix">
+                        <div class="col-lg-4 col-md-12 col-sm-12">
+                            <h1>Boitiers</h1>
+                        </div>
+                        <div th:if="${updateBoitier != null}" class="col-md-8 col-sm-12 text-md-right">
+                            <div class="d-flex align-items-center justify-content-md-end mt-4 mt-md-0 flex-wrap vivify pullUp delay-550">
+                                
+                                <div class="mb-3 mb-xl-0">
+                                    <a href="/boitiers" class="btn btn-dark">Nouveau Boitier</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    
+                    <div class="col-xl-3 col-lg-4 col-md-5">
+                        <div class="card">
+                            <div class="header">
+                                <h2>Modifier boitier</h2>
+                            </div>
+                            <form th:if="${updateBoitier != null}" enctype="multipart/form-data" method="post" th:action="@{/boitiers/update/{id} (id=${updateBoitier.id})}" class="body">
+                            <div class="row clearfix">
+                                	<div class="col-md-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Reference</label>
+                                            <input name="ref" type="text" class="form-control" th:value="${updateBoitier.ref}" placeholder="reference">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Type</label>
+                                            <input name="type" type="text" class="form-control" th:value="${updateBoitier.type}" placeholder="type">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Code</label>
+                                            <input name="code" type="text" class="form-control"  th:value="${updateBoitier.code}" placeholder="code">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Photo</label>
+                                            <input name="image" type="file" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-4 col-sm-12">
+                                        <div class="mb-2">
+                                            <button type="submit" class="btn btn-primary theme-bg gradient">Ajouter</button>
+                                        </div>                                    
+                                    </div>
+                                </div>
+                            </form>
+                            <form th:unless="${updateBoitier != null}" enctype="multipart/form-data" method="post" th:action="@{/boitiers}" class="body">
+                                <div class="row clearfix">
+                                	<div class="col-md-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Reference</label>
+                                            <input name="ref" type="text" class="form-control" placeholder="reference">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Type</label>
+                                            <input name="type" type="text" class="form-control" placeholder="type">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Code</label>
+                                            <input name="code" type="text" class="form-control" placeholder="code">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Photo</label>
+                                            <input name="image" type="file" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-4 col-sm-12">
+                                        <div class="mb-2">
+                                            <button type="submit" class="btn btn-primary theme-bg gradient">Ajouter</button>
+                                        </div>                                    
+                                    </div>
+                                </div>
+                            </form>
+                        </div>                    
+                    </div>
+                    <div class="col-xl-9 col-lg-8 col-md-7">
+                        <div class="card">
+                            <div class="header">
+                                <h2>Liste des boitiers</h2>                            
+                            </div>
+                            <div class="body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+    	                                        <th>Photo</th>
+                                                <th>#Reference</th>
+                                                <th>Type</th>
+                                                <th>Code</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="boitier: ${boitiers}">
+                                            <td class="w60">
+                                                    <style>
+                                                    	.rounded{
+															min-width : 160px
+														}
+                                                    </style>
+                                                    <img th:src="${boitier.image}" data-placement="top" title="" alt="plante" class="w35 rounded">
+                                                </td>
+                                                <td th:text="${boitier.ref}"></td>
+                                                <td th:text="${boitier.type}"></td>
+                                                <td  th:text="${boitier.code}"></td>
+                                                <td>
+                                                	
+                                                	<form method="post" th:action="@{/boitiers/delete/{id} (id=${boitier.id})}" >
+                                                	<a th:href="@{/boitiers/details	/{id} (id=${boitier.id})}" class="btn btn-default">Détails</a>
+                                                	<a th:href="@{/boitiers/update/{id} (id=${boitier.id})}" class="btn btn-info" style="color: white;">Modifier</a>
+                                                	<button type="submit" class="btn btn-danger" style="color: white;">Supprimer</button>
+                                                	</form >
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>             
+                    </div>                
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div th:replace="fragments/footer :: footer">
+
+</div>
+</body>
+</html>

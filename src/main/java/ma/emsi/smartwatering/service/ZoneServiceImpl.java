@@ -29,4 +29,9 @@ public class ZoneServiceImpl implements ZoneService{
 	public Zone get(long id) {
 		return zoneRepo.findById(id).get();
 	}
+
+	@Override
+	public List<Zone> getZoneByUserId(long id) {
+		return zoneRepo.getZoneByUserId(id);
+	}
 }

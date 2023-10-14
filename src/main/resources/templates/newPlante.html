@@ -1,0 +1,130 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<html lang="en">
+
+<head th:replace="fragments/header :: header">
+</head>
+<body>
+    
+<div id="body" class="theme-cyan">
+
+    <div th:replace="fragments/loader :: loader">
+	</div>
+
+
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+
+    <div id="wrapper">
+
+		<nav th:replace="fragments/navbar :: navbar">
+		</nav>
+
+        <div th:replace="fragments/sidebar :: sidebar">
+        </div>
+
+
+        
+        <!-- Main body part  -->
+        <div id="main-content">
+            <div class="container-fluid">
+                <!-- Page header section  -->
+                <div class="block-header">
+                    <div class="row clearfix">
+                        <div class="col-lg-4 col-md-12 col-sm-12">
+                            <h1>Nouvelle plante</h1>
+                        </div>            
+                        
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-md-12">
+                                           
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-7">
+                        <div class="card">
+                            <div class="header">
+                                <h2>Ajouter une plante</h2>
+                            </div>
+                            <form enctype="multipart/form-data" th:action="@{/plantes/new}" th:method="POST" class="body">
+                                <div class="row clearfix">
+                                    <div class="col-lg-6 col-md-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Libelle</label>
+                                            <input name="libelle" type="text" class="form-control" placeholder="libelle">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Racine</label>
+                                            <input name="racine" type="text" class="form-control" placeholder="Racine">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Type de plante</label>
+                                            <select name="type_id" class="form-control">
+                                            <option th:value="-1">Nouveau Type</option>
+                                                <option th:each="type : ${types}" th:value="${type.id}" th:text="${type.name}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Photo</label>
+                                            <input name="image" type="file" class="form-control" placeholder="Photo">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 header">
+                                <h2 class="m-b-15">Nouveau Type de plante</h2>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                        <div class="form-group c_form_group">
+                                            <label>type</label>
+                                            <input name="name" type="text" class="form-control" placeholder="nom ...">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Humidité Max</label>
+                                            <input name="humiditeMax" type="text" class="form-control" placeholder="humidite max">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Himidité Min</label>
+                                            <input name="humiditeMin" type="text" class="form-control" placeholder="humidite min">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Temperature</label>
+                                            <input name="temperature" type="text" class="form-control" placeholder="temperature">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Luminosité</label>
+                                            <input name="luminosite" type="text" class="form-control" placeholder="luminosite">
+                                        </div>
+                                    </div>
+                                    
+                                      
+                                </div>
+                                <button type="submit" class="btn btn-primary theme-bg gradient">Ajouter</button>
+                            </form>
+                        </div>              
+                    </div>                
+                </div>
+</div >
+        </div>
+
+    </div>
+
+</div>
+<div th:replace="fragments/footer :: footer">
+
+</div>
+</body>
+</html>

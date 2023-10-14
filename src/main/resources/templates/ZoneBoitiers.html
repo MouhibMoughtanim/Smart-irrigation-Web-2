@@ -1,0 +1,139 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<html lang="en">
+
+<head th:replace="fragments/header :: header">
+</head>
+<body>
+    
+<div id="body" class="theme-cyan">
+
+    <div th:replace="fragments/loader :: loader">
+	</div>
+
+
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+
+    <div id="wrapper">
+
+		<nav th:replace="fragments/navbar :: navbar">
+		</nav>
+
+        <div th:replace="fragments/sidebar :: sidebar">
+        </div>
+
+
+        
+        <!-- Main body part  -->
+        <div id="main-content">
+            <div class="container-fluid">
+                <!-- Page header section  -->
+                <div class="block-header">
+                    <div class="row clearfix">
+                        <div class="col-lg-4 col-md-12 col-sm-12">
+                            <h1>Boitiers</h1>
+                        </div>
+                        <div class="col-md-8 col-sm-12 text-md-right">
+                            <div class="d-flex align-items-center justify-content-md-end mt-4 mt-md-0 flex-wrap vivify pullUp delay-550">
+                                
+                                <div class="mb-3 mb-xl-0">
+                                    <a href="/boitiers" class="btn btn-dark">Nouveau Boitier</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    
+                    <div class="col-xl-3 col-lg-4 col-md-5">
+                        <div class="card">
+                            <div class="header">
+                                <h2>Modifier boitier</h2>
+                            </div>
+                            <form  method="post" th:action="@{/zones/install/{id} (id=${zone.id})}" class="body">
+                                <div class="row clearfix">
+                                	<div class="col-md-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Boitier</label>
+                                            <select name="boitier_id" class="form-control">
+                                                <option th:each="boitier : ${boitiers}" th:value="${boitier.id}" th:text="${boitier.ref +'-'+ boitier.type}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Date d'installation</label>
+                                            <input name="date" type="date" class="form-control" placeholder="date d'installation">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-4 col-sm-12">
+                                        <div class="mb-2">
+                                            <button type="submit" class="btn btn-primary theme-bg gradient">Installer</button>
+                                        </div>                                    
+                                    </div>
+                                </div>
+                            </form>
+                        </div>                    
+                    </div>
+                    <div class="col-xl-9 col-lg-8 col-md-7">
+                        <div class="card">
+                            <div class="header">
+                                <h2>Liste des boitiers</h2>                            
+                            </div>
+                            <div class="body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+    	                                        <th>Photo</th>
+                                                <th>#Reference</th>
+                                                <th>Date debut</th>
+                                                <th>Date Fin</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="installation : ${zone.installations}">
+                                            <td class="w60">
+                                                    <style>
+                                                    	.rounded{
+															min-width : 160px
+														}
+                                                    </style>
+                                                    <img th:src="${installation.boitier.image}" data-placement="top" title="" alt="plante" class="w35 rounded">
+                                                </td>
+                                                <td th:text="${installation.boitier.ref}"></td>
+                                                <td th:text="${#dates.format(installation.dateDebut, 'dd-MMM-yyyy')}"></td>
+                                                <td th:text="${#dates.format(installation.dateFin, 'dd-MMM-yyyy')}"></td>
+                                                <td>
+                                                	
+                                                	<form  method="post" th:action="@{/zones/{zone_id}/uninstall/{id} (zone_id=${zone.id}, id=${installation.id})}" >
+                                                		<a th:href="@{/boitiers/details/{id} (id=${installation.boitier.id})}" class="btn btn-default">Détails</a>
+                                                		<button th:if="${installation.dateFin == null}" type="submit" class="btn btn-info" style="color: white;">Desinstaller</button >
+                                                	</form>
+                                                	<!--<form th:if="${installation.dateFin != null}" method="post" th:action="@{/zones/{zone_id}/delete/{id} (zone_id=${zone.id}, id=${installation.id})}" >
+                                                		<a th:href="@{/boitiers/details/{id} (id=${installation.boitier.id})}" class="btn btn-default">Détails</a>
+                                                		<button   type="submit" class="btn btn-danger" style="color: white;">Supprimer</button >
+                                                	</form>-->
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>             
+                    </div>                
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div th:replace="fragments/footer :: footer">
+
+</div>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+
+
+
+<html lang="en">
+
+<head th:replace="fragments/header :: header">
+</head>
+<body>
+    
+<div id="body" class="theme-cyan">
+
+    <div th:replace="fragments/loader :: loader">
+	</div>
+
+
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+
+    <div id="wrapper">
+
+		<nav th:replace="fragments/navbar :: navbar">
+		</nav>
+
+        <div th:replace="fragments/sidebar :: sidebar">
+        </div>
+
+
+        
+        <!-- Main body part  -->
+        <div id="main-content">
+
+            <div class="container-fluid">
+                <!-- Page header section  -->
+                <div class="block-header">
+                    <div class="row clearfix">
+                        <div class="col-lg-4 col-md-12 col-sm-12">
+                            <h1>Zone X</h1>
+                            <span>Grandeurs récupérés,</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h2>Humidité</h2>                                                   
+                            </div>
+                            <div class="body">
+                                <div id="humidite" class="flot-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h2>Température</h2>                                                   
+                            </div>
+                            <div class="body">
+                                <div id="temp" class="flot-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h2>Luminosité</h2>                                                   
+                            </div>
+                            <div class="body">
+                                <div id="lumino" class="flot-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Javascript -->
+<script th:src="@{/bundles/libscripts.bundle.js}"></script>    
+<script th:src="@{/bundles/vendorscripts.bundle.js}"></script>
+
+<!-- Vedor js file and create bundle with grunt  --> 
+<script th:src="@{/bundles/flotscripts.bundle.js}"></script><!-- flot charts Plugin Js --> 
+<script th:src="@{/vendor/flot-charts/jquery.flot.time.js}"></script>
+<script th:src="@{/vendor/flot-charts/jquery.flot.selection.js}"></script>
+
+
+<!-- Project core js file minify with grunt --> 
+<script th:src="@{/bundles/mainscripts.bundle.js}"></script>
+
+
+<script th:src="@{/charts/flot.js}"></script>
+
+</div>
+</body>
+</html>

@@ -29,4 +29,6 @@ public class AppUser {
 	@JoinColumn(name="user_id")
 	private List<EspaceVert> espacesVerts;
 	
+	
+	
 }

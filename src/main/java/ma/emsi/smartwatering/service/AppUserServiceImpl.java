@@ -3,13 +3,13 @@ package ma.emsi.smartwatering.service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,25 +21,42 @@ import ma.emsi.smartwatering.model.AppUser;
 import ma.emsi.smartwatering.repository.AppUserRepository;
 
 @Service @RequiredArgsConstructor @Transactional @Slf4j
-public class AppUserServiceImpl implements AppUserService, UserDetailsService{
+public class AppUserServiceImpl implements AppUserService {
 	
 	@Autowired
 	private AppUserRepository userRepo;
-	private final PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
+	@Override
+	public AppUser currentUser(){
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username;
+		if (principal instanceof UserDetails) {
+		  username = ((UserDetails)principal).getUsername();
+		} else {
+		  username = principal.toString();
+		}
+		
+		return getUser(username);
+	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		
 		AppUser user = userRepo.findByUsername(username);
 		
-		if (user == null) {
-			throw new UsernameNotFoundException(username);
-		}
 		
-		Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-		authorities.add(new SimpleGrantedAuthority(user.getRole()));
+		if (user == null)
+			 throw new UsernameNotFoundException("Nom d'utilisateur ou mot de passe erroné");
 		
-		return new User(user.getUsername(), user.getPassword(), authorities);
+			 
+		List<String> roles = new ArrayList<String>();
+		roles.add(user.getRole());
+	
+		 
+		return new User(user.getUsername(), user.getPassword(), roles.stream().map(r -> new SimpleGrantedAuthority("ROLE_"+r)).collect(Collectors.toList())); 
+		
 	}
 	
 	@Override
@@ -56,6 +73,16 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService{
 	@Override
 	public List<AppUser> getUsers() {
 		return userRepo.findAll();
+	}
+
+	@Override
+	public AppUser getUser(long id) {
+		return userRepo.getById(id);
+	}
+
+	@Override
+	public void supprimer(long id) {
+		userRepo.deleteById(id);
 	}
 
 	
