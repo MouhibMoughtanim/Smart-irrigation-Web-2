@@ -141,7 +141,7 @@ public class UserController {
 	@PostMapping("/update/{id}")
 	public RedirectView modifier(@PathVariable long id, @RequestParam("username") String username, @RequestParam("address") String address, @RequestParam("phone") String phone,
 			@RequestParam("role") String role, @RequestParam("password") String password, @RequestParam("confirmation") String confirmation) {
-		
+
 		AppUser user = userService.getUser(id);
 		if(!password.isEmpty()  && password.equals(confirmation))
 			user.setPassword(password);
@@ -154,7 +154,14 @@ public class UserController {
 		if(!phone.isEmpty())
 			user.setPhone(phone);
 			userService.saveUser(user);
-			return new RedirectView("/users/details/"+id);
+
+            if(user.getRole() == "ADMIN") {
+                return new RedirectView("/users/details/" + id);
+            }
+        if(user.getRole() == "USER") {
+            return new RedirectView("/farmer");
+        }
+        return new RedirectView("/");
 	}
 	
 	
