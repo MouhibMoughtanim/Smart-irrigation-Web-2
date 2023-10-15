@@ -2,13 +2,7 @@ package ma.emsi.smartwatering.model;
 
 import java.time.ZonedDateTime;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,6 +18,7 @@ public class Connection {
 	private String branche;
 	
 	@ManyToOne
-    @JoinColumn(name="capteur_id")
+
+	@JoinColumn(name="capteur_id")
 	private Capteur capteur;
 }

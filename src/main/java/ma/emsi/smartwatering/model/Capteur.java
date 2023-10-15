@@ -2,15 +2,13 @@ package ma.emsi.smartwatering.model;
 
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity  @Data @NoArgsConstructor @AllArgsConstructor
 public class Capteur {
@@ -22,4 +20,7 @@ public class Capteur {
 	private String type;
 	private String image;
 	private float freq;
+
+	@OneToMany(mappedBy = "capteur",cascade = CascadeType.ALL)
+	private List<Connection> connections;
 }
