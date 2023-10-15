@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import ma.emsi.smartwatering.model.AppUser;
 import ma.emsi.smartwatering.model.Arrosage;
 
-public interface ArrosageRepository extends JpaRepository<Arrosage, Long>{
+public interface ArrosageRepository extends JpaRepository<Arrosage, Integer>{
 	
 	
 }
