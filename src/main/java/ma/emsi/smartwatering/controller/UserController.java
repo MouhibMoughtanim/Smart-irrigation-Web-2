@@ -66,6 +66,7 @@ public class UserController {
 	@GetMapping("/list")
 	public String usersList(Model model) {	
 		List<AppUser> users = userService.getUsers();
+		System.out.println(users);
 	    model.addAttribute("users", users);
 		return "userslist.html";
 	}

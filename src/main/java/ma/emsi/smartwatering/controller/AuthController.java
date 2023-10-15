@@ -21,49 +21,47 @@ public class AuthController {
 	// Login form
 	@Autowired
 	AppUserService userService;
-	
+
 	@GetMapping("")
 	public RedirectView redirectUser() {
 		System.out.println("Redirect");
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
 		boolean admin = authentication.getAuthorities().stream()
-		          .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
-		
+				.anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
 		if(admin)
 			return new RedirectView("/users/list");
-		else 
+		else
 			return new RedirectView("/farmer");
-    }
-	
-	
-	
+	}
+
+
+
 	@GetMapping("login")
-	public String login() {	
+	public String login() {
 		return "login.html";
 	}
 
-	
+
 	@GetMapping("inscription")
-	public String register() {	
+	public String register() {
 		return "register.html";
 	}
-	
+
 	@PostMapping("register")
 	public RedirectView AddUser(@RequestParam("username") String username, @RequestParam("password") String password,
-			@RequestParam("confirmation") String confirmation ) {
-		
+								@RequestParam("confirmation") String confirmation ) {
+
 		if(password.equals(confirmation)) {
 			AppUser newUser = new AppUser();
 			newUser.setPassword(password);
 			newUser.setUsername(username);
 			newUser.setRole("USER");
 			userService.saveUser(newUser);
-			
+
 		}
-		
+
 		return new RedirectView("/login");
 	}
-	
-	
+
+
 }

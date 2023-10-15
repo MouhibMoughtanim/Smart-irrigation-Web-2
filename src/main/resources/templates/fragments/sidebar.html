@@ -18,8 +18,13 @@
                         <img th:src="@{/images/user.png}" class="user-photo" alt="User Profile Picture">
                     </div>
                     <div class="dropdown">
-                        <span th:if="${user.role == 'ADMIN'}">Administrateur,</span>
-                        <span th:if="${user.role == 'USER'}">Agriculteur,</span>
+                        <div sec:authorize="hasRole('ROLE_ADMIN')">
+                        <span >Administrateur,</span>
+                        </div>
+                            <div sec:authorize="hasRole('ROLE_USER')">
+                        <span >Agriculteur,</span>
+                            </div>
+
                         <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong th:text="${#authentication.getPrincipal().getUsername()}"></strong></a>
                         <ul class="dropdown-menu dropdown-menu-right account vivify flipInY">
                             
