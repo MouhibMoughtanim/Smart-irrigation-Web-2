@@ -151,7 +151,8 @@ public class UserController {
 			user.setRole(role);
 		if(!username.isEmpty())
 			user.setUsername(username);
-		
+		if(!phone.isEmpty())
+			user.setPhone(phone);
 			userService.saveUser(user);
 			return new RedirectView("/users/details/"+id);
 	}
