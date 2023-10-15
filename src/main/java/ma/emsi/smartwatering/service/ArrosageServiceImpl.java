@@ -11,12 +11,16 @@ public class ArrosageServiceImpl implements ArrosageService{
 
 	@Autowired
 	ArrosageRepository ArrosageRepo;
-	
+
 	@Override
 	public Arrosage saveArrosage(Arrosage arrossage) {
 		return ArrosageRepo.save(arrossage);
 	}
 
+	@Override
+	public Arrosage getArrosage(int id) {
+		return  ArrosageRepo.getById(id);
+	}
 
 
 }
