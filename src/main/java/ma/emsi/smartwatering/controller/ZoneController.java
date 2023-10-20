@@ -197,7 +197,7 @@ public class ZoneController {
 		return new RedirectView("/zones/"+id+"/details");
 	}
 	
-	@GetMapping("/{id}/boitiers")
+	@GetMapping("/{id}/boitier")
 	public String boitiers(@PathVariable("id") long id, Model model) {
 		
 		List<Installation> installations = installationService.getInstallations();
@@ -208,7 +208,7 @@ public class ZoneController {
 		Zone zone = zoneService.get(id);
 		model.addAttribute("zone", zone);
 		
-		return "zoneBoitiers.html";
+		return "ZoneBoitiers.html";
 	}
 	
 	@PostMapping("/install/{id}")

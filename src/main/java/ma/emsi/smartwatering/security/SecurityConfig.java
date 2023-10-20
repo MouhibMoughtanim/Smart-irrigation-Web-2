@@ -45,8 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		 .and().authorizeRequests()
 		 	.mvcMatchers("/inscription","/register", "/plantes", "/uploads", "/grandeurs/**", "/uploads/**","/","/login", "/logout", "/images/**", "/vendor/**",
 		 			"/js/**", "/bundles/**", "/charts/**", "/vendor/**", "/css/**").permitAll()
-		 	.mvcMatchers("/plantes",  "/zones/grandeurs/**","/realtime/**","/plantes/new", "/farmer","/plantes/**", "/farmer/**", "/api/farmer/**").hasRole("USER")
-					.mvcMatchers("/users/update/**").access("hasRole('USER') or hasRole('ADMIN')")
+		 	.mvcMatchers("/plantes",  "/zones/grandeurs/**","/realtime/**", "/farmer","/plantes/**", "/farmer/**", "/api/farmer/**").hasRole("USER")
+					.mvcMatchers("/users/update/**","/plantes/new").access("hasRole('USER') or hasRole('ADMIN')")
 
 		 	.mvcMatchers("/plantes", "/zones/grandeurs/**", "/plantes/**","/**", "/api/**").hasRole("ADMIN")
 		 	.anyRequest().authenticated()
