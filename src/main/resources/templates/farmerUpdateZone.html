@@ -66,12 +66,12 @@
                                         <div class="form-group c_form_group">
                                             <label>Type de Sol</label>
                                             <select name="type_id" class="form-control">
-                                                <option value="-1">Nouveau type</option>
                                                 <option th:each="type : ${types}" th:value="${type.id}"
-                                                        th:text="${type.name}"></option>
+                                                        th:text="${type.name}" th:selected="${type.id == currentTypeId}">Type de Sol</option>
                                             </select>
                                         </div>
                                     </div>
+
                                 </div>
                                 <button type="submit" class="btn btn-primary theme-bg gradient">Modifier</button>
                             </form>
