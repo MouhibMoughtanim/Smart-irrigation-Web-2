@@ -105,7 +105,7 @@
                             </div>
                         </div>                    
                     </div>
-                    <div class="col-lg-3 col-md-5">
+                    <div class="col-lg-5 col-md-2">
                     <div class="card">
                             <div class="header">
                                 <h2>Enregistrement d'arrosage</h2>
@@ -143,20 +143,26 @@
                                             <tr>
                                                 <th>Date</th>
                                                 <th>Quantité d'eau</th>
+                                                <th>Modifier</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        	<tr th:each="arrosage : ${zone.arrosages}">
-                                               <td th:text="${#dates.format(arrosage.date, 'dd-MMM-yyyy')}"></td>
-                                                <td th:text="${arrosage.litresEau + ' litres'}"></td>
-                                            </tr>
-                                         </tbody>
+                                        <tr th:each="arrosage : ${zone.arrosages}">
+                                            <td th:text="${#dates.format(arrosage.date, 'dd-MMM-yyyy')}"></td>
+                                            <td th:text="${arrosage.litresEau + ' litres'}"></td>
+
+
+                                            <td>
+                                                <a th:href="@{'/zones/' + ${zone.id} + '/modifier-arrosage/' + ${arrosage.id}}" class="btn btn-info" style="color: white;">Modifier</a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>                    
                     </div> 
-                    <div class="col-xl-9 col-lg-4 col-md-5">
+                    <div class="col-xl-7 col-md-4">
                         <div class="card">
                             <div class="header">
                                 <h2>Plantes</h2>
@@ -177,7 +183,7 @@
                                             <tr th:each="plantage : ${zone.plantages}">
                                                 <td scope="row"><div class="mr-3">
                                         			<img th:src="${plantage.plante.image}" class="rounded" alt=""/>
-		                                    
+                                                </div>
 		                                    	</td>
                                                 <td th:text="${plantage.plante.libelle + ' - ' + plantage.plante.racine}"></td>
                                                 <td th:text="${#dates.format(plantage.date, 'dd-MMM-yyyy')}"></td>

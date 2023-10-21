@@ -14,6 +14,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
+import ma.emsi.smartwatering.model.*;
+import ma.emsi.smartwatering.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.parser.Part.Type;
 import org.springframework.stereotype.Controller;
@@ -25,24 +27,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
-
-import ma.emsi.smartwatering.model.Arrosage;
-import ma.emsi.smartwatering.model.Boitier;
-import ma.emsi.smartwatering.model.Connection;
-import ma.emsi.smartwatering.model.EspaceVert;
-import ma.emsi.smartwatering.model.Installation;
-import ma.emsi.smartwatering.model.Plantage;
-import ma.emsi.smartwatering.model.Plante;
-import ma.emsi.smartwatering.model.Zone;
-import ma.emsi.smartwatering.model.SolType;
-import ma.emsi.smartwatering.service.ArrosageService;
-import ma.emsi.smartwatering.service.BoitierService;
-import ma.emsi.smartwatering.service.EspaceVertService;
-import ma.emsi.smartwatering.service.InstallationService;
-import ma.emsi.smartwatering.service.PlantageService;
-import ma.emsi.smartwatering.service.PlanteService;
-import ma.emsi.smartwatering.service.TypeService;
-import ma.emsi.smartwatering.service.ZoneService;
 
 
 @Controller
@@ -61,6 +45,8 @@ public class ZoneController {
 	PlantageService plantageService;
 	@Autowired
 	ArrosageService arrosageService;
+	@Autowired
+	AppUserService userService;
 	@Autowired
 	InstallationService installationService;
 	@Autowired
@@ -196,7 +182,38 @@ public class ZoneController {
 		
 		return new RedirectView("/zones/"+id+"/details");
 	}
-	
+	@PostMapping("/{id}/modifier-arrosage/{arrosageId}")
+	public RedirectView modifierArrosagePost(@PathVariable("id") long id, @PathVariable("arrosageId") int arrosageId,
+											 @RequestParam("litres") String litres, @RequestParam String date) throws ParseException {
+		Zone zone = zoneService.get(id);
+		AppUser user = userService.currentUser();
+
+
+		Arrosage arrosage = arrosageService.getArrosage(arrosageId);
+
+
+		Date d = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+
+		arrosage.setDate(d);
+		arrosage.setLitresEau(Float.parseFloat(litres));
+
+		arrosageService.saveArrosage(arrosage);
+
+		return new RedirectView("/zones/" + id + "/details");
+	}
+	@GetMapping("/{id}/modifier-arrosage/{arrosageId}")
+	public String modifierArrosage(@PathVariable("id") long id, @PathVariable("arrosageId") int arrosageId, Model model) {
+		Zone zone = zoneService.get(id);
+		AppUser user = userService.currentUser();
+
+		Arrosage arrosage = arrosageService.getArrosage(arrosageId);
+		model.addAttribute("zone", zone);
+		model.addAttribute("arrosage", arrosage);
+		System.out.println(arrosage);
+		System.out.println(arrosage);
+		;
+		return "UserModifierArrosage.html";
+	}
 	@GetMapping("/{id}/boitier")
 	public String boitiers(@PathVariable("id") long id, Model model) {
 		

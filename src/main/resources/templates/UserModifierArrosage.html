@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en">
+<head th:replace="fragments/header :: header"></head>
+<body>
+
+<div id="body" class="theme-cyan">
+    <div th:replace="fragments/loader :: loader"></div>
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+    <div id="wrapper">
+        <nav th:replace="fragments/navbar :: navbar"></nav>
+        <div th:replace="fragments/sidebar :: sidebar"></div>
+        <!-- Main body part  -->
+        <div id="main-content">
+            <div class="container-fluid">
+                <!-- Page header section  -->
+                <div class="block-header">
+                    <div class="row clearfix">
+                        <div class="col-lg-4 col-md-12 col-sm-12">
+                            <h1>Modification de l'arrosage d'une plante dans une zone</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="header">
+                                <h2>Modification de l'arrosage</h2>
+                            </div>
+                            <form th:if="${arrosage != null}"  th:action="@{'/zones/' + ${zone.id} + '/modifier-arrosage/' + ${arrosage.id}}" method="post" class="body">
+                                <div class="row clearfix">
+
+                                    <div class="col-lg-6 col-md-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Quantité</label>
+
+                                            <input name="litres" type="text" class="form-control" th:value="${arrosage.litresEau}" >
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="form-group c_form_group">
+                                            <label>Date d'arrosage</label>
+                                            <input name="date" type="date" class="form-control" th:value="${#dates.format(arrosage.date, 'yyyy-MM-dd')}" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary theme-bg gradient">Modifier</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
