@@ -16,6 +16,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.parser.Part.Type;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -163,9 +165,76 @@ public class ZoneController {
 		
 		return new RedirectView("/zones/"+id + "/details");
 	}
-	
 
-	
+	/*@GetMapping("/update/{id}")
+	public String updateZone(@PathVariable long id, Model model) {
+		Zone zone = zoneService.get(id);
+		model.addAttribute("zone", zone);
+		return "updateZone.html";
+	}*/
+
+	@GetMapping("/update/{zoneId}")
+	public String updateZone(Model model, @PathVariable("zoneId") long zoneId) {
+		// Retrieve the existing zone by its ID
+		Zone existingZone = zoneService.get(zoneId);
+
+		// Retrieve the list of SolTypes
+		List<SolType> types = typeService.getTypes();
+
+		// Add the existing zone and SolTypes to the model
+		model.addAttribute("zone", existingZone);
+		model.addAttribute("types", types);
+
+		return "updateZone.html";
+	}
+
+	@PostMapping("/update/{zoneId}")
+	public RedirectView processUpdateZone(@PathVariable("zoneId") long zoneId,
+										  @RequestParam("libelle") String libelle,
+										  @RequestParam("newType") String newType,
+										  @RequestParam("type_id") long type_id,
+										  @RequestParam("superficie") float superficie,
+										  @RequestParam("image") MultipartFile file) {
+
+		// Retrieve the existing zone
+		Zone existingZone = zoneService.get(zoneId);
+
+		// Update the zone's properties based on the form data
+		existingZone.setLibelle(libelle);
+		existingZone.setSuperficie(superficie);
+
+		if (type_id == -1) {
+			// Handle creating a new SolType
+			SolType t = new SolType();
+			t.setName(newType);
+			SolType nt = typeService.saveType(t);
+			existingZone.setType(nt);
+		} else {
+			// Handle selecting an existing SolType
+			SolType t = typeService.getType(type_id);
+			existingZone.setType(t);
+		}
+
+		// Handle image upload if needed
+		if (!file.isEmpty()) {
+			String imagePath = "zone_" + libelle.replace(" ", "_") + "_" + file.getOriginalFilename();
+			Path fileNameAndPath = Paths.get(uploadDirectory, imagePath);
+			try {
+				Files.write(fileNameAndPath, file.getBytes());
+				existingZone.setImage("/uploads/" + imagePath);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		// Save the updated zone
+		zoneService.saveZone(existingZone);
+
+		// Redirect to the zone's details page
+		return new RedirectView("/zones/" + zoneId+"/details");
+	}
+
+
 	@GetMapping("/grandeurs/{id}")
 	public String grandeurs() {
 		return "grandeursZone2.html";
@@ -247,8 +316,32 @@ public class ZoneController {
 		
 		return  new RedirectView("/zones/"+zone_id+"/boitiers");
 	}
+	@PostMapping("/delete/{id}")
+	public RedirectView deleteZone(@PathVariable long id) {
+		try {
+			// Check if the zone with the specified ID exists
+			Zone zoneToDelete = zoneService.get(id);
+			if (zoneToDelete == null) {
+				// If the zone doesn't exist, redirect to the zone list
+				return new RedirectView("/espaces");
+			}
+
+			// Perform the delete operation
+			zoneService.supprimer(id);
+
+			// After successfully deleting the zone, redirect to the zone list
+			return new RedirectView("/espaces");
+		} catch (Exception e) {
+			// Handle any exceptions or errors that may occur during the delete operation
+			// You can also set up an error page or redirect to a relevant error page
+			return new RedirectView("/error");
+		}
+	}
+
+
+
 	
-	@PostMapping("/{zone_id}/delete/{id}")
+	/*@PostMapping("/{zone_id}/delete/{id}")
 	public RedirectView deleteInstallation(@PathVariable("id") long id, @PathVariable("zone_id") long zone_id) {
 		
 		Installation installation = installationService.getInstallation(id);
@@ -263,6 +356,6 @@ public class ZoneController {
 		
 		
 		return  new RedirectView("/zones/"+zone_id+"/boitiers");
-	}
+	}*/
 	
 }

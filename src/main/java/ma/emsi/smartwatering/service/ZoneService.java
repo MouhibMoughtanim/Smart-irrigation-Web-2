@@ -13,5 +13,7 @@ public interface ZoneService {
 	
 	List<Zone> getZones();
 
+	void supprimer(long id);
+
 	List<Zone> getZoneByUserId(long id);
 }

@@ -34,4 +34,9 @@ public class ZoneServiceImpl implements ZoneService{
 	public List<Zone> getZoneByUserId(long id) {
 		return zoneRepo.getZoneByUserId(id);
 	}
+
+	@Override
+	public void supprimer(long id) {
+		zoneRepo.deleteById(id);
+	}
 }
