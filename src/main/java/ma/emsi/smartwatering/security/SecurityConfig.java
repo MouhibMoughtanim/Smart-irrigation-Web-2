@@ -15,14 +15,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import ma.emsi.smartwatering.service.AppUserService;
 
-@Configuration @EnableWebSecurity 
+@Configuration @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
-	
+
 	@Autowired
 	AppUserService userService;
 	@Autowired
 	PasswordEncoder passwordEncoder;
- 
+
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
@@ -30,15 +30,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		auth.setPasswordEncoder(passwordEncoder);
 		return auth;
 	}
-	
+
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws
-	Exception {
+			Exception {
 		auth.authenticationProvider(authenticationProvider());
 	}
-	
-	 @Override
+
+	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+<<<<<<< HEAD
 		 http.formLogin().defaultSuccessUrl("/", true);
 			http.httpBasic()
 		 .authenticationEntryPoint(new NoPopupBasicAuthenticationEntryPoint())
@@ -61,5 +62,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	 
 	 
 	 
+=======
+		http.formLogin().defaultSuccessUrl("/", true);
+		http.httpBasic()
+				.authenticationEntryPoint(new NoPopupBasicAuthenticationEntryPoint())
+				.and().authorizeRequests()
+				.mvcMatchers("/inscription","/register", "/plantes", "/uploads", "/grandeurs/**", "/uploads/**","/","/login", "/logout", "/images/**", "/vendor/**",
+						"/js/**", "/bundles/**", "/charts/**", "/vendor/**", "/css/**").permitAll()
+				.mvcMatchers(  "/zones/grandeurs/**","/realtime/**", "/farmer", "/farmer/**", "/api/farmer/**").hasRole("USER")
+				.mvcMatchers("/users/update/**","/plantes","/plantes/new","/plantes/**").access("hasRole('USER') or hasRole('ADMIN')")
+
+				.mvcMatchers("/zones/grandeurs/**", "/**", "/api/**").hasRole("ADMIN")
+				.anyRequest().authenticated()
+				.and()
+				.formLogin().loginPage("/login")
+				.and()
+				.logout()
+				.clearAuthentication(true).invalidateHttpSession(true)
+				.and()
+				.csrf().disable();
+	}
+>>>>>>> 7f2da27c9b25a12f4e29b36f4e7ddb6c91ed3b34
+
+
+
 
 }
