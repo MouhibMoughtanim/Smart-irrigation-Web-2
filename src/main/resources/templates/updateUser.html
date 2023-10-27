@@ -1,110 +1,86 @@
-<!doctype html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
 <html lang="en">
-
-<head th:replace="fragments/header :: header">
-</head>
+<head th:replace="fragments/header :: header"></head>
 <body>
-    
 <div id="body" class="theme-cyan">
-
-    <div th:replace="fragments/loader :: loader">
-	</div>
-
-
+    <div th:replace="fragments/loader :: loader"></div>
     <!-- Overlay For Sidebars -->
     <div class="overlay"></div>
-
     <div id="wrapper">
-
-		<nav th:replace="fragments/navbar :: navbar">
-		</nav>
-
-        <div th:replace="fragments/sidebar :: sidebar">
-        </div>
-
-
-        
-        <!-- Main body part  -->
+        <nav th:replace="fragments/navbar :: navbar"></nav>
+        <div th:replace="fragments/sidebar :: sidebar"></div>
+        <!-- Main body part -->
         <div id="main-content">
             <div class="container-fluid">
-                <!-- Page header section  -->
+                <!-- Page header section -->
                 <div class="block-header">
                     <div class="row clearfix">
                         <div class="col-lg-4 col-md-12 col-sm-12">
-                            <h1>Modifier utilisatreur</h1>
-                        </div>            
-                        
+                            <h1>Edit User</h1>
+                        </div>
                     </div>
                 </div>
                 <div class="row clearfix">
                     <div class="col-md-12">
-                                           
                     </div>
                     <div class="col-xl-8 col-lg-8 col-md-7">
                         <div class="card">
                             <div class="header">
-                                <h2>Modifier un utilisareur</h2>
+                                <h2>Edit User</h2>
                             </div>
                             <form th:action="@{/users/update/{id} (id=${user.id})}" th:method="PUT" class="body">
                                 <div class="row clearfix">
                                     <div class="col-lg-6 col-md-12">
                                         <div class="form-group c_form_group">
-                                            <label>Nom d'utilisateur</label>
-                                            <input th:value="${user.username}" name="username" type="text" class="form-control" placeholder="Nom d'utilisatur'">
+                                            <label>Username</label>
+                                            <input th:value="${user.username}" name="username" type="text" class="form-control" placeholder="Username">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-12">
                                         <div class="form-group c_form_group">
-                                            <label>Adresse</label>
-                                            <input th:value="${user.address}" name="address" type="text" class="form-control" placeholder="Adresse">
+                                            <label>Address</label>
+                                            <input th:value="${user.address}" name="address" type="text" class="form-control" placeholder="Address">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-12">
                                         <div class="form-group c_form_group">
-                                            <label>Numéro de Tel.</label>
+                                            <label>Phone Number</label>
                                             <input th:value="${user.phone}" name="phone" type="text" class="form-control" placeholder="06 ...">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-12">
                                         <div class="form-group c_form_group">
-                                            <label>Rôle d'utilisateur'</label>
-                                            <select th:field="*{user.role}" class="form-control">	
-                                                <option value="USER">Agriculteur</option>
-                                                <option value="ADMIN">Administrateur</option>
+                                            <label>User Role</label>
+                                            <select th:field="*{user.role}" class="form-control">
+                                                <option value="USER">Farmer</option>
+                                                <option value="ADMIN">Administrator</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-12">
                                         <div class="form-group c_form_group">
-                                            <label>Nouveau Mot de passe</label>
-                                            <input id="passwordInput" name="password"  type="password" class="form-control" placeholder="Nouveau Mot de passe" >
+                                            <label>New Password</label>
+                                            <input id="passwordInput" name="password"  type="password" class="form-control" placeholder="New Password">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-12">
                                         <div class="form-group c_form_group">
-                                            <label>Confirmation de mot de passe</label>
-                                            <input id="confirmationInput" name="confirmation" type="password" class="form-control" placeholder="Confirmation de mot de passe">
+                                            <label>Password Confirmation</label>
+                                            <input id="confirmationInput" name="confirmation" type="password" class="form-control" placeholder="Password Confirmation">
                                         </div>
                                     </div>
-                                      
                                 </div>
-                                <button id="submitButton" type="submit" class="btn btn-primary theme-bg gradient" disabled>Modifier</button>
+                                <button id="submitButton" type="submit" class="btn btn-primary theme-bg gradient" disabled>Edit</button>
                             </form>
-                        </div>              
-                    </div>                
+                        </div>
+                    </div>
                 </div>
-</div >
+            </div>
         </div>
-
     </div>
-
 </div>
-<div th:replace="fragments/footer :: footer">
-
-</div>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
-<<script th:src="@{/js/update.js}"></script>>
-
+<script th:src="@{/js/update.js}"></script>
 </html>

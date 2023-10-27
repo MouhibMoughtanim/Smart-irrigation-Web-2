@@ -1,52 +1,45 @@
-<!doctype html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
 <html lang="en">
-
 <head th:replace="fragments/header :: header">
 </head>
 <body>
-    
+
 <div id="body" class="theme-cyan">
-
     <div th:replace="fragments/loader :: loader">
-	</div>
-
+    </div>
 
     <!-- Overlay For Sidebars -->
     <div class="overlay"></div>
 
     <div id="wrapper">
-
-		<nav th:replace="fragments/navbar :: navbar">
-		</nav>
+        <nav th:replace="fragments/navbar :: navbar">
+        </nav>
 
         <div th:replace="fragments/sidebar :: sidebar">
         </div>
 
-
-        
         <!-- Main body part  -->
         <div id="main-content">
-			<div class="container-fluid">
+            <div class="container-fluid">
                 <!-- Page header section  -->
                 <div class="block-header">
                     <div class="row clearfix">
                         <div class="col-lg-4 col-md-12 col-sm-12">
-                            <h1>Info Zone!</h1>
-                        </div>            
+                            <h1>Zone Information</h1>
+                        </div>
                         <div class="col-lg-8 col-md-12 col-sm-12 text-lg-right">
                             <div class="d-flex align-items-center justify-content-lg-end mt-4 mt-lg-0 flex-wrap vivify pullUp delay-550">
                                 <div class="border-right pr-4 mr-4 mb-2 mb-xl-0 hidden-xs">
-                                    <p class="text-muted mb-1">Humidité <span id="mini-bar-chart3" class="mini-bar-chart"><canvas width="35" height="15" style="display: inline-block; width: 35px; height: 15px; vertical-align: top;"></canvas></span></p>
+                                    <p class="text-muted mb-1">Humidity <span id="mini-bar-chart3" class="mini-bar-chart"><canvas width="35" height="15" style="display: inline-block; width: 35px; height: 15px; vertical-align: top;"></canvas></span></p>
                                     <h5 class="mb-0">289</h5>
                                 </div>
                                 <div class="border-right pr-4 mr-4 mb-2 mb-xl-0">
-                                    <p class="text-muted mb-1">Temperature <span id="mini-bar-chart2" class="mini-bar-chart"><canvas width="35" height="15" style="display: inline-block; width: 35px; height: 15px; vertical-align: top;"></canvas></span></p>
+                                    <p class="text-muted mb-1">Temperature <span id="mini-bar-chart2" class="mini-bar-chart"><canvas width="35" height="15" style="display: inline-block; width: 35px; height:15px; vertical-align: top;"></canvas></span></p>
                                     <h5 class="mb-0">541</h5>
                                 </div>
                                 <div class="mb-3 mb-xl-0">
-                                    <p class="text-muted mb-1">Luminosité <span id="mini-bar-chart1" class="mini-bar-chart"><canvas width="35" height="15" style="display: inline-block; width: 35px; height: 15px; vertical-align: top;"></canvas></span></p>
+                                    <p class="text-muted mb-1">Light <span id="mini-bar-chart1" class="mini-bar-chart"><canvas width="35" height="15" style="display: inline-block; width: 35px; height: 15px; vertical-align: top;"></canvas></span></p>
                                     <h5 class="mb-0">98</h5>
                                 </div>
                             </div>
@@ -54,157 +47,146 @@
                     </div>
                 </div>
                 <div class="row clearfix">
-                <div class="col-md-6">
+                    <div class="col-md-6">
                         <div class="card social theme-bg gradient">
                             <div class="profile-header d-sm-flex justify-content-between justify-content-center">
                                 <div class="d-flex">
                                     <div class="mr-3">
-                                    	<style>
-                                    		.rounded {
-												min-width: 120px
-											}
-                                    	</style>
+                                        <style>
+                                            .rounded {
+                                                min-width: 120px
+                                            }
+                                        </style>
                                         <img th:src="${zone.image}" class="rounded" alt="">
                                     </div>
                                     <div class="details">
-                                        <h5 class="mb-0" th:text="${'Nom de la Zone : ' + zone.libelle}"></h5>
-                                        <span class="text-light" th:text="${'Superficie : ' + zone.superficie + ' m²'}"></span>
-                                        <p class="mb-0" ><span th:text="${'Type de sol : '+ zone.type.name}"></span></p>
-                                    </div>                                
-                                
+                                        <h5 class="mb-0" th:text="${'Zone Name: ' + zone.libelle}"></h5>
+                                        <span class="text-light" th:text="${'Area: ' + zone.superficie + ' m²'}"></span>
+                                        <p class="mb-0" ><span th:text="${'Soil Type: '+ zone.type.name}"></span></p>
+                                    </div>
                                 </div>
-                            <div>
-                                    <button class="btn btn-default">Grandeurs</button>
+                                <div>
+                                    <button class="btn btn-default">Attributes</button>
                                 </div>
                             </div>
-                        </div>                    
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <div class="card social bg-info gradient">
-                            <div class="profile-header d-sm-flex justify-content-between justify-content-center">
-                                <div class="d-flex">
-                                    <div class="mr-3">
-                                    	<style>
-                                    		.rounded {
-												min-width: 120px
-											}
-                                    	</style>
-                                        <img th:src="${zone.image}" class="rounded" alt="">
-                                    </div>
-                                    <div class="details">
-                                        <h5 class="mb-0" th:text="${'Nom de la Zone : ' + zone.libelle}"></h5>
-                                        <span class="text-light" th:text="${'Superficie : ' + zone.superficie + ' m²'}"></span>
-                                        <p class="mb-0" ><span th:text="${'Type de sol : '+ zone.type.name}"></span></p>
-                                    </div>                                
-                                
+                        <div class="profile-header d-sm-flex justify-content-between justify-content-center">
+                            <div class="d-flex">
+                                <div class="mr-3">
+                                    <style>
+                                        .rounded {
+                                            min-width: 120px
+                                        }
+                                    </style>
+                                    <img th:src="${zone.image}" class="rounded" alt="">
                                 </div>
+                                <div class="details">
+                                    <h5 class="mb-0" th:text="${'Zone Name: ' + zone.libelle}"></h5>
+                                    <span class="text-light" th:text="${'Area: ' + zone.superficie + ' m²'}"></span>
+                                    <p class="mb-0" ><span th:text="${'Soil Type: '+ zone.type.name}"></span></p>
+                                </div>
+                            </div>
                             <div>
-                                    <a th:href="@{/zones/update/{id} (id=${zone.id})}" class="mb-2 btn btn-dark">Modifier</a><br>
-                                    <a class="btn btn-default">Détails</a>
-                                </div>
+                                <a th:href="@{/zones/update/{id} (id=${zone.id})}" class="mb-2 btn btn-dark">Edit</a><br>
+                                <a class="btn btn-default">Details</a>
                             </div>
-                        </div>                    
+                        </div>
                     </div>
-                    <div class="col-lg-5 col-md-2">
+                </div>
+                <div class="col-lg-5 col-md-2">
                     <div class="card">
-                            <div class="header">
-                                <h2>Enregistrement d'arrosage</h2>
-                            </div>
-                            <div class="body">
+                        <div class="header">
+                            <h2>Watering Record</h2>
+                        </div>
+                        <div class="body">
                             <form th:action="@{/zones/{id}/arrosage (id=${zone.id})}" method="post" class="body"><input type="hidden" name="_csrf" value="024b210c-eda8-41a5-9eba-e932bc5857af">
                                 <div class="row clearfix">
-                                    
                                     <div class="col-lg-12">
                                         <div class="form-group c_form_group">
                                             <label>Date</label>
-                                            <input name="date" type="date" class="form-control" placeholder="moment d'arrosage ...'">
+                                            <input name="date" type="date" class="form-control" placeholder="watering time ...'">
                                         </div>
                                     </div>
-									<div class="col-lg-12">
+                                    <div class="col-lg-12">
                                         <div class="form-group c_form_group">
-                                            <label>Litre d'eau</label>
-                                            <input name="litres" type="number" class="form-control" placeholder="... litres">
+                                            <label>Water Liters</label>
+                                            <input name="litres" type="number" class="form-control" placeholder="... liters">
                                         </div>
                                     </div>
-                                    
                                 </div>
-                                <button type="submit" class="btn btn-success">Enregister</button>
+                                <button type="submit" class="btn btn-success">Save</button>
                             </form>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="header">
+                            <h2>Watering History</h2>
+                        </div>
+                        <div class="body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Water Quantity</th>
+                                        <th>Edit</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="watering : ${zone.arrosages}">
+                                        <td th:text="${#dates.format(watering.date, 'dd-MMM-yyyy')}"></td>
+                                        <td th:text="${watering.litresEau + ' liters'}"></td>
+                                        <td>
+                                            <a th:href="@{'/zones/' + ${zone.id} + '/edit-watering/' + ${watering.id}}" class="btn btn-info" style="color: white;">Edit</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <div class="card">
-                            <div class="header">
-                                <h2>Historique D'arrosage</h2>
+                    </div>
+                </div>
+                <div class="col-xl-7 col-md-4">
+                    <div class="card">
+                        <div class="header">
+                            <h2>Plants</h2>
+                        </div>
+                        <div class="body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Photo</th>
+                                        <th>Name - Root</th>
+                                        <th>Planting Date</th>
+                                        <th>Number of Plants</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="planting : ${zone.plantages}">
+                                        <td scope="row"><div class="mr-3">
+                                            <img th:src="${planting.plante.image}" class="rounded" alt=""/>
+                                        </div>
+                                        </td>
+                                        <td th:text="${planting.plante.libelle + ' - ' + planting.plante.racine}"></td>
+                                        <td th:text="${#dates.format(planting.date, 'dd-MMM-yyyy')}"></td>
+                                        <td th:text="${planting.nombre}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="body">
-                                <div class="table-responsive">
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Date</th>
-                                                <th>Quantité d'eau</th>
-                                                <th>Modifier</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="arrosage : ${zone.arrosages}">
-                                            <td th:text="${#dates.format(arrosage.date, 'dd-MMM-yyyy')}"></td>
-                                            <td th:text="${arrosage.litresEau + ' litres'}"></td>
-
-
-                                            <td>
-                                                <a th:href="@{'/zones/' + ${zone.id} + '/modifier-arrosage/' + ${arrosage.id}}" class="btn btn-info" style="color: white;">Modifier</a>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>                    
-                    </div> 
-                    <div class="col-xl-7 col-md-4">
-                        <div class="card">
-                            <div class="header">
-                                <h2>Plantes</h2>
-                                
-                            </div>
-                            <div class="body">
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Photo</th>
-                                                <th>Nom - Racine</th>
-                                                <th>Date de plantage</th>
-                                                <th>Nombre des plantes</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr th:each="plantage : ${zone.plantages}">
-                                                <td scope="row"><div class="mr-3">
-                                        			<img th:src="${plantage.plante.image}" class="rounded" alt=""/>
-                                                </div>
-		                                    	</td>
-                                                <td th:text="${plantage.plante.libelle + ' - ' + plantage.plante.racine}"></td>
-                                                <td th:text="${#dates.format(plantage.date, 'dd-MMM-yyyy')}"></td>
-                                                <td th:text="${plantage.nombre}"></td>
-                                            </tr>
-                                            
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>                    
-                    </div>             
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
-
+</div>
 </div>
 <div th:replace="fragments/footer :: footer">
-
 </div>
 </body>
 </html>

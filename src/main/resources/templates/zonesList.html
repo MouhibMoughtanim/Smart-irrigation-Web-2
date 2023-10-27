@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <html lang="en">
@@ -20,12 +20,12 @@
                 <div class="block-header">
                     <div class="row clearfix">
                         <div class="col-md-5 col-sm-12">
-                            <h1>Liste des zones</h1>
+                            <h1>List of Zones</h1>
                         </div>
                         <div class="col-md-7 col-sm-12 text-md-right">
                             <div class="d-flex align-items-center justify-content-md-end mt-4 mt-md-0 flex-wrap vivify pullUp delay-550">
                                 <div class="mb-3 mb-xl-0">
-                                    <a th:href="@{/zones/new/{id} (id=${espace_id})}" class="btn btn-dark">Créer une zone</a>
+                                    <a th:href="@{/zones/new/{id} (id=${espace_id})}" class="btn btn-dark">Create a Zone</a>
                                 </div>
                             </div>
                         </div>
@@ -40,9 +40,9 @@
                                         <thead>
                                         <tr>
                                             <th>Photo</th>
-                                            <th>Libelle</th>
-                                            <th>Superficie</th>
-                                            <th>Type de sol</th>
+                                            <th>Label</th>
+                                            <th>Area</th>
+                                            <th>Soil Type</th>
                                             <th>Actions</th>
                                         </tr>
                                         </thead>
@@ -54,23 +54,23 @@
                                                         min-width: 200px;
                                                     }
                                                 </style>
-                                                <img th:src="${zone.image}" data-placement="top" title="" alt="plante" class="w35 rounded">
+                                                <img th:src="${zone.image}" data-placement="top" title="" alt="plant" class="w35 rounded">
                                             </td>
                                             <td>
-                                                <p th:text="${zone.libelle}"></p>
+                                                <p th:text="${zone.label}"></p>
                                             </td>
                                             <td>
-                                                <p th:text="${zone.superficie} + ' m²'"></p>
+                                                <p th:text="${zone.area} + ' m²'"></p>
                                             </td>
                                             <td>
                                                 <p th:text="${zone.type.name}"></p>
                                             </td>
                                             <td>
                                                 <div style="display: flex;">
-                                                    <a th:href="@{/zones/{id}/details (id=${zone.id})}" class="btn btn-default">Détails</a>
-                                                    <a th:href="@{/zones/plantage/{id} (id=${zone.id})}" class="btn btn-success">Planter</a>
-                                                    <a th:href="@{/zones/{id}/boitier (id=${zone.id})}" class="btn btn-info">Boitier</a>
-                                                    <button th:value="${zone.id}" onclick="showDeleteConfirmation(this.value)" class="btn btn-danger btn-filter deleteButton">Supprimer</button>
+                                                    <a th:href="@{/zones/{id}/details (id=${zone.id})}" class="btn btn-default">Details</a>
+                                                    <a th:href="@{/zones/plantage/{id} (id=${zone.id})}" class="btn btn-success">Plant</a>
+                                                    <a th:href="@{/zones/{id}/boitier (id=${zone.id})}" class="btn btn-info">Device</a>
+                                                    <button th:value="${zone.id}" onclick="showDeleteConfirmation(this.value)" class="btn btn-danger btn-filter deleteButton">Delete</button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -90,7 +90,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
-
 <script type="text/javascript">
     function showDeleteConfirmation(zoneId) {
         Swal.fire({
@@ -109,14 +108,13 @@
                         'Content-Type': 'application/json',
                     },
                 })
-                window.location.reload()
                     .then((response) => {
                         if (response.status === 204) {
                             // Successful delete, you can reload the page or perform other actions here
                             window.location.reload();
                         } else {
                             // Handle errors if necessary
-                            console.error('Failed to delete zone.');
+                            console.error('Failed to delete the zone.');
                         }
                     })
                     .catch((error) => {
@@ -125,7 +123,6 @@
             }
         });
     }
-
 </script>
 </body>
 </html>

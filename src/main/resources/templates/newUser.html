@@ -1,16 +1,14 @@
-<!doctype html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
 <html lang="en">
-
 <head th:replace="fragments/header :: header">
 </head>
 <body>
-    
+
 <div id="body" class="theme-cyan">
 
     <div th:replace="fragments/loader :: loader">
-	</div>
+    </div>
 
 
     <!-- Overlay For Sidebars -->
@@ -18,14 +16,14 @@
 
     <div id="wrapper">
 
-		<nav th:replace="fragments/navbar :: navbar">
-		</nav>
+        <nav th:replace="fragments/navbar :: navbar">
+        </nav>
 
         <div th:replace="fragments/sidebar :: sidebar">
         </div>
 
 
-        
+
         <!-- Main body part  -->
         <div id="main-content">
             <div class="container-fluid">
@@ -33,69 +31,69 @@
                 <div class="block-header">
                     <div class="row clearfix">
                         <div class="col-lg-4 col-md-12 col-sm-12">
-                            <h1>Nouvel utilisatreur</h1>
-                        </div>            
-                        
+                            <h1>New User</h1>
+                        </div>
+
                     </div>
                 </div>
                 <div class="row clearfix">
                     <div class="col-md-12">
-                                           
+
                     </div>
                     <div class="col-xl-8 col-lg-8 col-md-7">
                         <div class="card">
                             <div class="header">
-                                <h2>Ajouter un utilisareur</h2>
+                                <h2>Add a User</h2>
                             </div>
                             <form method="post" th:action="@{/users}"  class="body">
                                 <div class="row clearfix">
                                     <div class="col-lg-6 col-md-12">
                                         <div class="form-group c_form_group">
-                                            <label>Nom d'utilisateur</label>
-                                            <input name="username" type="text" class="form-control" placeholder="Nom d'utilisatur'">
+                                            <label>Username</label>
+                                            <input name="username" type="text" class="form-control" placeholder="Username">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-12">
                                         <div class="form-group c_form_group">
-                                            <label>Adresse</label>
-                                            <input name="address" type="text" class="form-control" placeholder="Adresse">
+                                            <label>Address</label>
+                                            <input name="address" type="text" class="form-control" placeholder="Address">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-12">
                                         <div class="form-group c_form_group">
-                                            <label>Numéro de Tel.</label>
+                                            <label>Phone Number</label>
                                             <input name="phone" type="text" class="form-control" placeholder="06 ...">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-12">
                                         <div class="form-group c_form_group">
-                                            <label>Rôle d'utilisateur'</label>
+                                            <label>User Role</label>
                                             <select name="role" class="form-control">
-                                                <option value="USER">Agriculteur</option>
-                                                <option value="ADMIN">Administrateur</option>
+                                                <option value="USER">Farmer</option>
+                                                <option value="ADMIN">Administrator</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-12">
                                         <div class="form-group c_form_group">
-                                            <label>Mot de passe</label>
-                                            <input name="password" type="password" class="form-control" placeholder="Mot de passe">
+                                            <label>Password</label>
+                                            <input name="password" type="password" class="form-control" placeholder="Password">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-12">
                                         <div class="form-group c_form_group">
-                                            <label>Confirmation de mot de passe</label>
-                                            <input name="confirmation" type="password" class="form-control" placeholder="Confirmation de mot de passe">
+                                            <label>Confirm Password</label>
+                                            <input name="confirmation" type="password" class="form-control" placeholder="Confirm Password">
                                         </div>
                                     </div>
-                                      
+
                                 </div>
-                                <button type="submit" class="btn btn-primary theme-bg gradient">Ajouter</button>
+                                <button type="submit" class="btn btn-primary theme-bg gradient">Add</button>
                             </form>
-                        </div>              
-                    </div>                
+                        </div>
+                    </div>
                 </div>
-</div >
+            </div >
         </div>
 
     </div>

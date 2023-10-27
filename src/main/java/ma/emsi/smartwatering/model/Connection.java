@@ -21,4 +21,14 @@ public class Connection {
 
 	@JoinColumn(name="capteur_id")
 	private Capteur capteur;
+
+	@Override
+	public String toString() {
+		return "Connection{" +
+				"id=" + id +
+				
+				// Add other fields you want to include in the string representation
+				'}';
+	}
+
 }

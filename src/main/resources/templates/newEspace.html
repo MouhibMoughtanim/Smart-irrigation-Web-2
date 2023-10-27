@@ -33,8 +33,7 @@
                 <div class="block-header">
                     <div class="row clearfix">
                         <div class="col-lg-4 col-md-12 col-sm-12">
-                            <h1>Nouvel espace</h1>
-                        </div>            
+                            <h1>New space</h1>                        </div>
                         
                     </div>
                 </div>
@@ -46,13 +45,13 @@
                                     
                                     <div class="col-lg-6 col-md-12">
                                         <div class="form-group c_form_group">
-                                            <label>Libelle Espace vert</label>
+                                            <label>Green space label</label>
                                             <input name="libelle" type="text" class="form-control" placeholder="libelle espace vert">
                                         </div>
                                     </div>
 									<div class="col-lg-6 col-md-12">
                                         <div class="form-group c_form_group">
-                                            <label>Photo Espace Vert</label>
+                                            <label>Green space image</label>
                                             <input name="image" accept="image/png, image/jpeg" type="file" class="form-control" placeholder="Photo espace vert">
                                         </div>
                                     </div>
@@ -62,21 +61,21 @@
                                     
                                       
                                 </div>
-                                <button type="submit" class="btn btn-primary theme-bg gradient">Ajouter</button>
+                                <button type="submit" class="btn btn-primary theme-bg gradient">Add</button>
                             </form>
                             <form sec:authorize="hasRole('ROLE_ADMIN')"  th:action="@{/espaces/new}" th:method="POST" enctype="multipart/form-data" class="body">
                                 <div class="row clearfix">
                                     
                                     <div class="col-lg-6 col-md-12">
                                         <div class="form-group c_form_group">
-                                            <label>Libelle Espace vert</label>
-                                            <input name="libelle" type="text" class="form-control" placeholder="libelle espace vert">
+                                            <label>Green space label</label>
+                                            <input name="libelle" type="text" class="form-control" placeholder="Green space label">
                                         </div>
                                     </div>
 									<div class="col-lg-6 col-md-12">
                                         <div class="form-group c_form_group">
-                                            <label>Photo Espace Vert</label>
-                                            <input name="image" accept="image/png, image/jpeg" type="file" class="form-control" placeholder="Photo espace vert">
+                                            <label>Green space image</label>
+                                            <input name="image" accept="image/png, image/jpeg" type="file" class="form-control" placeholder="Green space image">
                                         </div>
                                     </div>
                                     
@@ -85,7 +84,7 @@
                                     
                                       
                                 </div>
-                                <button type="submit" class="btn btn-primary theme-bg gradient">Ajouter</button>
+                                <button type="submit" class="btn btn-primary theme-bg gradient">Add</button>
                             </form>
                         </div>              
                     </div>                

@@ -1,67 +1,67 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" 
- xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <html>
 <head></head>
 <body>
 <!-- Main left sidebar menu -->
-        <div th:fragment="sidebar" id="left-sidebar" class="sidebar">
-            <a href="#" class="menu_toggle"><i class="fa fa-angle-left"></i></a>
-            <div class="navbar-brand">
-                <a href="#"><img th:src="@{/images/icon.svg}" alt="Mooli Logo" class="img-fluid logo"><span>Smart Watering</span></a>
-                <button type="button" class="btn-toggle-offcanvas btn btn-sm float-right"><i class="lnr lnr-menu fa fa-chevron-circle-left"></i></button>
+<div th:fragment="sidebar" id="left-sidebar" class="sidebar">
+    <a href="#" class="menu_toggle"><i class="fa fa-angle-left"></i></a>
+    <div class="navbar-brand">
+        <a href="#"><img th:src="@{/images/icon.svg}" alt="Mooli Logo" class="img-fluid logo"><span>Smart Watering</span></a>
+        <button type="button" class="btn-toggle-offcanvas btn btn-sm float-right"><i class="lnr lnr-menu fa fa-chevron-circle-left"></i></button>
+    </div>
+    <div class="sidebar-scroll">
+        <div class="user-account">
+            <div class="user_div">
+                <img th:src="@{/images/user.png}" class="user-photo" alt="User Profile Picture">
             </div>
-            <div class="sidebar-scroll">
-                <div class="user-account">
-                    <div class="user_div">
-                        <img th:src="@{/images/user.png}" class="user-photo" alt="User Profile Picture">
-                    </div>
-                    <div class="dropdown">
-                        <div sec:authorize="hasRole('ROLE_ADMIN')">
-                        <span >Administrateur,</span>
-                        </div>
-                            <div sec:authorize="hasRole('ROLE_USER')">
-                        <span >Agriculteur,</span>
-                            </div>
+            <div class="dropdown">
+                <div sec:authorize="hasRole('ROLE_ADMIN')">
+                    <span>Administrator,</span>
+                </div>
+                <div sec:authorize="hasRole('ROLE_USER')">
+                    <span>Farmer,</span>
+                </div>
 
-                        <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong th:text="${#authentication.getPrincipal().getUsername()}"></strong></a>
-                        <ul class="dropdown-menu dropdown-menu-right account vivify flipInY">
-                            
-                            <li><a href="/logout"><i class="fa fa-power-off"></i>Logout</a></li>
-                        </ul>
-                    </div>
-                </div>  
-                <nav id="left-sidebar-nav" class="sidebar-nav">
-                    <ul id="main-menu" class="metismenu animation-li-delay">
-                        <div sec:authorize="hasRole('ROLE_ADMIN')">
-                        <li class="header">Utilisateurs</li>
-                        <li><a href="/users/list"><i class="fa fa-users"></i> <span>Liste des utilisateurs</span></a></li>
-                        <li><a href="/users"><i class="fa fa-user"></i> <span>Nouvel Utilisateur</span></a></li>
-                        <li><a href="/users/espaces"><i class="fa fa-edit"></i><span>Responsables des zones</span></a></li>
-                        <li class="header">Espaces Verts</li>
-                        <li><a href="/espaces"><i class="fa fa-th"></i> <span>Liste des espaces</span></a></li>
-                        <li><a href="/plantes"><i class="fa fa-tree"></i> <span>Liste des plantes</span></a></li>
-                        <li class="header">Capteurs</li>
-                        <li><a href="/boitiers"><i class="fa fa-dashboard"></i> <span>Liste des Boitiers</span></a></li>
-                        <li><a href="/capteurs"><i class="fa fa-dashboard"></i> <span>Liste des capteurs</span></a></li>
-                        </div>
-                        
-                        
-                        <div sec:authorize="hasRole('ROLE_USER')">
-                         <li class="header">Profile</li>
-                        <li><a href="/farmer"><i class="fa fa-users"></i> <span>Mon Compte</span></a></li>
-                        <li><a href="/farmer/update"><i class="fa fa-user"></i> <span>Modifier mon profile</span></a></li>
-                        <li class="header">Plantes</li>
-                        <li><a href="/plantes"><i class="fa fa-tree"></i> <span>Liste des plantes</span></a></li>
-                        <li class="header">Capteurs</li>
-                        <li><a href="/farmer/boitiers"><i class="fa fa-dashboard"></i> <span>Mes Boitiers</span></a></li>
-                        <li><a href="/farmer/capteurs"><i class="fa fa-dashboard"></i> <span>Mes capteurs</span></a></li>
-                        </div>
-                        
-                    </ul>
-                </nav>     
+                <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong th:text="${#authentication.getPrincipal().getUsername()}"></strong></a>
+                <ul class="dropdown-menu dropdown-menu-right account vivify flipInY">
+
+                    <li><a href="/logout"><i class="fa fa-power-off"></i>Logout</a></li>
+                </ul>
             </div>
         </div>
+        <nav id="left-sidebar-nav" class="sidebar-nav">
+            <ul id="main-menu" class="metismenu animation-li-delay">
+                <div sec:authorize="hasRole('ROLE_ADMIN')">
+                    <li class="header">Users</li>
+                    <li><a href="/users/list"><i class="fa fa-users"></i> <span>List of users</span></a></li>
+                    <li><a href="/users"><i class="fa fa-user"></i> <span>New User</span></a></li>
+                    <li><a href="/users/espaces"><i class="fa fa-edit"></i><span>Zone Managers</span></a></li>
+                    <li class="header">Green Spaces</li>
+                    <li><a href="/espaces"><i class="fa fa-th"></i> <span>List of spaces</span></a></li>
+                    <li><a href="/plantes"><i class="fa fa-tree"></i> <span>List of plants</span></a></li>
+                    <li class="header">Sensors</li>
+                    <li><a href="/boitiers"><i class="fa fa-dashboard"></i> <span>List of Boxes</span></a></li>
+                    <li><a href="/capteurs"><i class="fa fa-dashboard"></i> <span>List of sensors</span></a></li>
+                </div>
+
+
+                <div sec:authorize="hasRole('ROLE_USER')">
+                    <li class="header">Profile</li>
+                    <li><a href="/farmer"><i class="fa fa-users"></i> <span>My Account</span></a></li>
+                    <li><a href="/farmer/update"><i class="fa fa-user"></i> <span>Update My Profile</span></a></li>
+                    <li class="header">Plants</li>
+                    <li><a href="/plantes"><i class="fa fa-tree"></i> <span>List of plants</span></a></li>
+                    <li class="header">Sensors</li>
+                    <li><a href="/farmer/boitiers"><i class="fa fa-dashboard"></i> <span>My Boxes</span></a></li>
+                    <li><a href="/farmer/capteurs"><i class="fa fa-dashboard"></i> <span>My sensors</span></a></li>
+                </div>
+
+            </ul>
+        </nav>
+    </div>
+</div>
 </body>
 </html>

@@ -1,31 +1,19 @@
-<!doctype html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
 <html lang="en">
-
 <head th:replace="fragments/header :: header">
 </head>
 <body>
-
 <div id="body" class="theme-cyan">
-
     <div th:replace="fragments/loader :: loader">
     </div>
-
-
     <!-- Overlay For Sidebars -->
     <div class="overlay"></div>
-
     <div id="wrapper">
-
         <nav th:replace="fragments/navbar :: navbar">
         </nav>
-
         <div th:replace="fragments/sidebar :: sidebar">
         </div>
-
-
-
         <!-- Main body part  -->
         <div id="main-content">
             <div class="container-fluid">
@@ -33,13 +21,12 @@
                 <div class="block-header">
                     <div class="row clearfix">
                         <div class="col-md-5 col-sm-12">
-                            <h1>Liste des plantes enregistrées</h1>
+                            <h1>List of Registered Plants</h1>
                         </div>
                         <div class="col-md-7 col-sm-12 text-md-right">
                             <div class="d-flex align-items-center justify-content-md-end mt-4 mt-md-0 flex-wrap vivify pullUp delay-550">
-
                                 <div class="mb-3 mb-xl-0">
-                                    <a href="/plantes/new" class="btn btn-dark">Ajouter une plante</a>
+                                    <a href="/plantes/new" class="btn btn-dark">Add a Plant</a>
                                 </div>
                             </div>
                         </div>
@@ -54,13 +41,12 @@
                                         <thead>
                                         <tr>
                                             <th>Photo</th>
-                                            <th>Libelle / Racine</th>
+                                            <th>Label / Root</th>
                                             <th>Type</th>
                                             <th class="text-right">Temperature</th>
-                                            <th class="text-right">Humidité</th>
-                                            <th class="text-right">Luminosité</th>
+                                            <th class="text-right">Humidity</th>
+                                            <th class="text-right">Luminosity</th>
                                             <th class="text-right">Actions</th>
-
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -71,7 +57,7 @@
                                                         width : 100px
                                                     }
                                                 </style>
-                                                <img th:src="${plante.image}" data-placement="top" title="" alt="plante" class="w35 rounded">
+                                                <img th:src="${plante.image}" data-placement="top" title="" alt="plant" class="w35 rounded">
                                             </td>
                                             <td>
                                                 <p th:text="${plante.libelle + ' - ' + plante.racine}"></p>
@@ -83,11 +69,10 @@
                                             <td class="text-right"th:text="${plante.type.humiditeMax + ' - ' + plante.type.humiditeMin}"></td>
                                             <td class="text-right" th:text="${plante.type.luminosite}"><strong></strong></td>
                                             <td><form method="post" th:action="@{/plantes/delete/{id} (id=${plante.id})}" >
-                                                <a th:href="@{/plantes/update/{id} (id=${plante.id})}" class="btn btn-info" style="color: white;">Modifier</a>
-                                                <button type="submit" class="btn btn-danger" style="color: white;">Supprimer</button>
+                                                <a th:href="@{/plantes/update/{id} (id=${plante.id})}" class="btn btn-info" style="color: white;">Edit</a>
+                                                <button type="submit" class="btn btn-danger" style="color: white;">Delete</button>
                                             </form ></td>
                                         </tr >
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -97,12 +82,9 @@
                 </div>
             </div>
         </div>
-
     </div>
-
 </div>
 <div th:replace="fragments/footer :: footer">
-
 </div>
 </body>
 </html>

@@ -23,4 +23,14 @@ public class Capteur {
 
 	@OneToMany(mappedBy = "capteur",cascade = CascadeType.ALL)
 	private List<Connection> connections;
+
+	@Override
+	public String toString() {
+		return "Capteur{" +
+				"id=" + id +
+				", name='" + type + '\'' +
+				// Add other fields you want to include in the string representation
+				'}';
+	}
+
 }

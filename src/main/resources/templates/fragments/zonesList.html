@@ -6,37 +6,33 @@
 <head th:replace="fragments/header :: header">
 </head>
 <body>
-    
+
 <div id="body" class="theme-cyan">
 
     <div th:replace="fragments/loader :: loader">
-	</div>
-
+    </div>
 
     <!-- Overlay For Sidebars -->
     <div class="overlay"></div>
 
     <div id="wrapper">
 
-		<nav th:replace="fragments/navbar :: navbar">
-		</nav>
+        <nav th:replace="fragments/navbar :: navbar">
+        </nav>
 
         <div th:replace="fragments/sidebar :: sidebar">
         </div>
 
-
-        
-        <!-- Main body part  -->
+        <!-- Main body part -->
         <div id="main-content">
             <div class="container-fluid">
-                <!-- Page header section  -->
+                <!-- Page header section -->
                 <div class="block-header">
                     <div class="row clearfix">
                         <div class="col-lg-4 col-md-12 col-sm-12">
-                            <h1>Liste des zones</h1>
+                            <h1>List of Zones</h1>
                         </div>
                         <div class="col-lg-8 col-md-12 col-sm-12 text-lg-right">
-                            
                         </div>
                     </div>
                 </div>
@@ -47,31 +43,30 @@
                                 <div class="table-responsive">
                                     <table class="table table-hover table-custom spacing5 mb-0">
                                         <thead>
-                                            <tr> 
-                                                <th>Photo</th>
-                                                <th>Libelle</th>
-                                                <th>Superficie</th>
-                                                <th>Type de sol</th>
-                                                <th>Espace Vert</th>
-                                            </tr>
+                                        <tr>
+                                            <th>Photo</th>
+                                            <th>Label</th>
+                                            <th>Area</th>
+                                            <th>Soil Type</th>
+                                            <th>Green Space</th>
+                                        </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td class="w60">
-                                                    <img src="" data-placement="top" title="" alt="plante" class="w35 rounded">
-                                                </td>
-                                                <td>
-                                                    <p>Zone X</p>
-                                                </td>
-                                                <td>
-                                                	<p>4163 m²</p>
-                                                </td>
-                                                <td>
-                                                	<p>Type X</p>
-                                                </td>
-                                                <td>Espace X-1</td>
-                                            </tr>
-                                            
+                                        <tr>
+                                            <td class="w60">
+                                                <img src="" data-placement="top" title="" alt="plant" class="w35 rounded">
+                                            </td>
+                                            <td>
+                                                <p>Zone X</p>
+                                            </td>
+                                            <td>
+                                                <p>4163 m²</p>
+                                            </td>
+                                            <td>
+                                                <p>Type X</p>
+                                            </td>
+                                            <td>Green Space X-1</td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -81,12 +76,9 @@
                 </div>
             </div>
         </div>
-
     </div>
-
 </div>
 <div th:replace="fragments/footer :: footer">
-
 </div>
 </body>
 </html>

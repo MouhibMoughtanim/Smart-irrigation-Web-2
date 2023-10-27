@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <html lang="en">
@@ -24,7 +24,7 @@
                 <div class="block-header">
                     <div class="row clearfix">
                         <div class="col-lg-4 col-md-12 col-sm-12">
-                            <h1>Modifier Zone</h1>
+                            <h1>Modify Zone</h1>
                         </div>
                     </div>
                 </div>
@@ -34,19 +34,19 @@
                     <div class="col-xl-8 col-lg-8 col-md-7">
                         <div class="card">
                             <div class="header">
-                                <h2>Modifier une Zone</h2>
+                                <h2>Modify a Zone</h2>
                             </div>
                             <form th:action="@{'/farmer/zones/update/' + ${zone.id}}" enctype="multipart/form-data" th:method="POST" class="body">
                                 <div class="row clearfix">
                                     <div class="col-lg-6 col-md-12">
                                         <div class="form-group c_form_group">
-                                            <label>Libelle</label>
+                                            <label>Label</label>
                                             <input name="libelle" type="text" class="form-control" th:value="${zone.libelle}">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-12">
                                         <div class="form-group c_form_group">
-                                            <label>Superficie</label>
+                                            <label>Area</label>
                                             <input name="superficie" type="text" class="form-control" th:value="${zone.superficie}">
                                         </div>
                                     </div>
@@ -58,22 +58,22 @@
                                     </div>
                                     <div class="col-lg-6 col-md-12">
                                         <div class="form-group c_form_group">
-                                            <label>Nouveau type</label>
+                                            <label>New Type</label>
                                             <input name="newType" type="text" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-12">
                                         <div class="form-group c_form_group">
-                                            <label>Type de Sol</label>
+                                            <label>Soil Type</label>
                                             <select name="type_id" class="form-control">
                                                 <option th:each="type : ${types}" th:value="${type.id}"
-                                                        th:text="${type.name}" th:selected="${type.id == currentTypeId}">Type de Sol</option>
+                                                        th:text="${type.name}" th:selected="${type.id == currentTypeId}">Soil Type</option>
                                             </select>
                                         </div>
                                     </div>
 
                                 </div>
-                                <button type="submit" class="btn btn-primary theme-bg gradient">Modifier</button>
+                                <button type="submit" class="btn btn-primary theme-bg gradient">Modify</button>
                             </form>
                         </div>
                     </div>
