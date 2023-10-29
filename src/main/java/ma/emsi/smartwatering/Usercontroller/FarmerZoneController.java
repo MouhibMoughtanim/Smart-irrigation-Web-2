@@ -288,7 +288,58 @@ public class FarmerZoneController {
 		model.addAttribute("zone", zone);
 		return "farmerZoneDetails.html";
 	}
+	@GetMapping("/{zone_id}/modifier-plantage/{id}")
+	public String modifierPlantage(Model model, @PathVariable Long id,@PathVariable Long zone_id) {
+		Plantage plantages= plantageService.get(id);
 
+		System.out.println(plantages);
+		List<Plante> plantes = planteService.getPlante();
+		model.addAttribute("plantes", plantes);
+		model.addAttribute("plantages", plantages);
+
+		model.addAttribute("zone_id", zone_id);
+
+		return "zonePlanteModifUser.html";
+	}
+	@PostMapping("/{zone_id}/modifier-plantagee/{id}")
+	public RedirectView modifierPlantage(@PathVariable("id") long id, @RequestParam("plante_id") long planteId,@PathVariable("zone_id") long zone_id, @RequestParam("quantity") int quantity,
+										 @RequestParam("date") String date) throws ParseException {
+
+		if (quantity < 0) {
+			return new RedirectView("/zones/modifierplantage/" + id);
+		}
+		Plante plante = planteService.get(planteId);
+
+		Date parsedDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+
+		Plantage existingPlante = plantageService.get(id);
+		existingPlante.setPlante(plante);
+
+		System.out.println(existingPlante);
+
+		existingPlante.setNombre(quantity);
+		existingPlante.setDate(parsedDate);
+		existingPlante = plantageService.savePlantage(existingPlante);
+
+
+
+		return new RedirectView("/farmer/zones/"+zone_id + "/details");
+	}
+
+	@PostMapping("/{zone_id}/supprimer/{plantage_id}")
+	public RedirectView supprimerPlantage(@PathVariable long zone_id, @PathVariable long plantage_id) {
+		Plantage plantage = plantageService.get(plantage_id);
+		if (plantage != null) {
+			Zone zone = zoneService.get(zone_id);
+			zone.getPlantages().remove(plantage);
+			plantageService.supprimer(plantage_id);
+
+
+			return new RedirectView("/farmer/zones/" + zone_id + "/details");
+		} else {
+			return new RedirectView("/farmer/zones/" + zone_id + "/details?error=Plantage introuvable");
+		}
+	}
 	@PostMapping("/{id}/arrosage")
 	public RedirectView arrosage(@PathVariable("id") long id, @RequestParam("litres") float litres, @RequestParam String date) throws ParseException {
 		Zone zone = zoneService.get(id);

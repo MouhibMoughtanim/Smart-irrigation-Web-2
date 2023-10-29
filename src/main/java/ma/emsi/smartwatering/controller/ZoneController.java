@@ -22,11 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -128,40 +124,39 @@ public class ZoneController {
 		model.addAttribute("plantes", plantes);
 		return "zonePlante.html";
 	}
-	@GetMapping("/modifierplantage/{id}")
-	public String modifierPlantage(Model model, @PathVariable long id) {
+	@GetMapping("/{zone_id}/modifier-plantage/{id}")
+	public String modifierPlantage(Model model, @PathVariable Long id,@PathVariable Long zone_id) {
+		Plantage plantages= plantageService.get(id);
+
+		System.out.println(plantages);
 		List<Plante> plantes = planteService.getPlante();
-		model.addAttribute("zone_id", id);
 		model.addAttribute("plantes", plantes);
+		model.addAttribute("plantages", plantages);
+
+		model.addAttribute("zone_id", zone_id);
+
 		return "zonePlanteModif.html";
+	}
+	@PostMapping("/{zone_id}/supprimer/{plantage_id}")
+	public RedirectView supprimerPlantage(@PathVariable long zone_id, @PathVariable long plantage_id) {
+		// Utilisez le service pour obtenir le plantage par son ID
+		Plantage plantage = plantageService.get(plantage_id);
+		if (plantage != null) {
+			Zone zone = zoneService.get(zone_id);
+			zone.getPlantages().remove(plantage);
+			plantageService.supprimer(plantage_id);
+
+
+			return new RedirectView("/zones/" + zone_id + "/details");
+		} else {
+			return new RedirectView("/zones/" + zone_id + "/details?error=Plantage introuvable");
+		}
 	}
 	@PostMapping("/plantage/{id}")
 	public RedirectView addPlantage(@PathVariable("id") long id, @RequestParam("plante_id") long plante_id, @RequestParam("quantity") int quantity,
 			@RequestParam("date") String date) throws ParseException {
-		
-	    Date d = new SimpleDateFormat("yyyy-MM-dd").parse(date);  
-		
-		if(quantity < 0)
-			return new RedirectView("/zones/plantage/"+id);
-		
-		
-		Plante plante = planteService.get(plante_id);
-		Zone zone = zoneService.get(id);
-		Plantage plantage = new Plantage();
-		plantage.setNombre(quantity);
-		plantage.setDate(d);
-		plantage.setPlante(plante);
-		plantage = plantageService.savePlantage(plantage);
-		zone.getPlantages().add(plantage);
-		zoneService.saveZone(zone);
-		
-		return new RedirectView("/zones/"+id + "/details");
-	}
-	@PostMapping("/modifierplantagee/{id}")
-	public RedirectView modifierPlantage(@PathVariable("id") long id, @RequestParam("plante_id") long plante_id, @RequestParam("quantity") int quantity,
-									@RequestParam("date") String date) throws ParseException {
 
-		Date d = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+	    Date d = new SimpleDateFormat("yyyy-MM-dd").parse(date);
 
 		if(quantity < 0)
 			return new RedirectView("/zones/plantage/"+id);
@@ -179,6 +174,31 @@ public class ZoneController {
 
 		return new RedirectView("/zones/"+id + "/details");
 	}
+	@PostMapping("/{zone_id}/modifier-plantagee/{id}")
+	public RedirectView modifierPlantage(@PathVariable("id") long id, @RequestParam("plante_id") long planteId,@PathVariable("zone_id") long zone_id, @RequestParam("quantity") int quantity,
+										 @RequestParam("date") String date) throws ParseException {
+
+		if (quantity < 0) {
+			return new RedirectView("/zones/modifierplantage/" + id);
+		}
+		Plante plante = planteService.get(planteId);
+
+		Date parsedDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+
+		Plantage existingPlante = plantageService.get(id);
+		existingPlante.setPlante(plante);
+
+		System.out.println(existingPlante);
+
+		existingPlante.setNombre(quantity);
+		existingPlante.setDate(parsedDate);
+		existingPlante = plantageService.savePlantage(existingPlante);
+
+
+
+		return new RedirectView("/zones/"+zone_id + "/details");
+	}
+
 	/*@GetMapping("/update/{id}")
 	public String updateZone(@PathVariable long id, Model model) {
 		Zone zone = zoneService.get(id);
@@ -323,7 +343,17 @@ public class ZoneController {
 		
 		return "ZoneBoitiers.html";
 	}
-	
+	@PostMapping("/{zone_id}//delete/{id}")
+	public RedirectView deletePlantage(@PathVariable long id,@PathVariable long zone_id) {
+		try {
+			plantageService.supprimer(id);
+			System.out.println("supprimer");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new RedirectView("/plantes");
+	}
 	@PostMapping("/install/{id}")
 	public RedirectView install(@PathVariable("id") long id,@RequestParam("boitier_id") long boitier_id, @RequestParam String date) throws ParseException {
 		

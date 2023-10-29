@@ -9,7 +9,7 @@ public interface PlantageService {
 	Plantage savePlantage(Plantage plantage);
 	
 	Plantage get(long id);
-	
+
 	List<Plantage> getPlantage();
 	
 	void supprimer(long id);

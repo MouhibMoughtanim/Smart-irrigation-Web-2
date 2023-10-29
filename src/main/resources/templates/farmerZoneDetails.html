@@ -129,6 +129,7 @@
                                             <th>Name - Root</th>
                                             <th>Planting Date</th>
                                             <th>Number of Plants</th>
+                                            <th>Actions</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -141,6 +142,10 @@
                                             <td th:text="${planting.plante.libelle + ' - ' + planting.plante.racine}"></td>
                                             <td th:text="${#dates.format(planting.date, 'dd-MMM-yyyy')}"></td>
                                             <td th:text="${planting.nombre}"></td>
+                                            <td><form method="post" th:action="@{'/farmer/zones/' + ${zone.id} + '/supprimer/' + ${planting.id}}" >
+                                            <a th:href="@{'/farmer/zones/' + ${zone.id} + '/modifier-plantage/' + ${planting.id}}" class="btn btn-info" style="color: white;">Edit</a>
+                                            <button type="submit" class="btn btn-danger" style="color: white;">Delete</button>
+                                        </form ></td>
                                         </tr>
                                         </tbody>
                                     </table>

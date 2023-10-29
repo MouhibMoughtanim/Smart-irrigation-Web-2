@@ -33,43 +33,43 @@
                 <div class="block-header">
                     <div class="row clearfix">
                         <div class="col-lg-4 col-md-12 col-sm-12">
-                            <h1>Arrosage d'une plante dans une zone</h1>
+                            <h1>Modify Watering a plant in an area</h1>
                         </div>
 
                     </div>
                 </div>
                 <div class="row clearfix">
                     <div class="col-md-6">
-                        <div class="card">
+                        <div class="card" th:if="${plantages != null}">
                             <div class="header">
-                                <h2>Arrosage</h2>
+                                <h2>Watering</h2>
                             </div>
-                            <form th:action="@{/zones/modifierplantagee/{id} (id=${zone_id})}" method="post" class="body">
-                                <div class="row clearfix">
+                            <form th:action="@{'/zones/' + ${zone_id} + '/modifier-plantagee/' + ${plantages.id}}" method="post" class="body">
+                                <div class="row clearfix" >
 
                                     <div class="col-lg-6 col-md-12">
                                         <div class="form-group c_form_group">
-                                            <label>Plante</label>
+                                            <label>Plant</label>
                                             <select class="form-control" name="plante_id">
-                                                <option th:each="plante : ${plantes}" th:value="${plante.id}" th:text=${plante.libelle}></option>
+                                                <option th:each="plante : ${plantes}" th:value="${plante.id}" th:text="${plante.libelle}"></option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-12">
                                         <div class="form-group c_form_group">
-                                            <label>Quantité</label>
-                                            <input name="quantity" type="number" class="form-control" placeholder="Quantité">
+                                            <label>Quantity</label>
+                                            <input name="quantity" type="text" class="form-control" placeholder="Quantité" th:value="${plantages.nombre}" >
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12">
                                         <div class="form-group c_form_group">
-                                            <label>Date d'arrosage</label>
-                                            <input name="date" type="date" class="form-control" placeholder="Date d'arrosage...">
+                                            <label>Watering Date</label>
+                                            <input name="date" type="date" class="form-control" placeholder="Date d'arrosage..." th:value="${#dates.format(plantages.date, 'yyyy-MM-dd')}" >
                                         </div>
                                     </div>
 
                                 </div>
-                                <button type="submit" class="btn btn-primary theme-bg gradient">modifer</button>
+                                <button type="submit" class="btn btn-primary theme-bg gradient">Modify</button>
                             </form>
                         </div>
                     </div>

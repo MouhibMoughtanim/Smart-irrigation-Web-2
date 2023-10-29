@@ -34,4 +34,6 @@ public class PlantageServiceImpl implements PlantageService {
 		plantageRepo.deleteById(id);
 	}
 
+
+
 }
