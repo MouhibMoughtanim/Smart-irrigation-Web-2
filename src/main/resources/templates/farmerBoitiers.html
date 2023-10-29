@@ -27,12 +27,12 @@
                 <div class="block-header">
                     <div class="row clearfix">
                         <div class="col-lg-4 col-md-12 col-sm-12">
-                            <h1>Devices</h1>
+                            <h1>Boxs</h1>
                         </div>
                         <div th:if="${updateBoitier != null}" class="col-md-8 col-sm-12 text-md-right">
                             <div class="d-flex align-items-center justify-content-md-end mt-4 mt-md-0 flex-wrap vivify pullUp delay-550">
                                 <div class="mb-3 mb-xl-0">
-                                    <a href="/farmer/boitiers" class="btn btn-dark">New Device</a>
+                                    <a href="/farmer/boitiers" class="btn btn-dark">New Box</a>
                                 </div>
                             </div>
                         </div>
@@ -42,9 +42,9 @@
                     <div class="col-xl-3 col-lg-4 col-md-5">
                         <div class="card">
                             <div class="header">
-                                <h2>Edit Device</h2>
+                                <h2>Edit Box</h2>
                             </div>
-                            <form th:if="${updateBoitier != null}" enctype="multipart/form-data" method="post" th:action="@{/farmer/boitiers/update/{id} (id=${updateBoitier.id})}" class="body">
+                            <div th:if="${updateBoitier != null}" enctype="multipart/form-data" method="post" th:action="@{/farmer/boitiers/update/{id} (id=${updateBoitier.id})}" class="body">
                                 <div class="row clearfix">
                                     <div class="col-md-12">
                                         <div class="form-group c_form_group">
@@ -74,7 +74,7 @@
                                     <div class="mb-2">
                                         <button type="submit" class="btn btn-primary theme-bg gradient">Add</button>
                                     </div>
-                                </div>
+                                </div></div>
                         </div>
                         </form>
                         <form th:unless="${updateBoitier != null}" enctype="multipart/form-data" method="post" th:action="@{/farmer/boitiers}" class="body">
@@ -123,7 +123,7 @@
                 <div class="col-xl-9 col-lg-8 col-md-7">
                     <div class="card">
                         <div class="header">
-                            <h2>Device List</h2>
+                            <h2>Box List</h2>
                         </div>
                         <div class="body">
                             <div class="table-responsive">

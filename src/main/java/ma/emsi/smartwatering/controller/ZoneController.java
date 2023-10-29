@@ -128,7 +128,13 @@ public class ZoneController {
 		model.addAttribute("plantes", plantes);
 		return "zonePlante.html";
 	}
-	
+	@GetMapping("/modifierplantage/{id}")
+	public String modifierPlantage(Model model, @PathVariable long id) {
+		List<Plante> plantes = planteService.getPlante();
+		model.addAttribute("zone_id", id);
+		model.addAttribute("plantes", plantes);
+		return "zonePlanteModif.html";
+	}
 	@PostMapping("/plantage/{id}")
 	public RedirectView addPlantage(@PathVariable("id") long id, @RequestParam("plante_id") long plante_id, @RequestParam("quantity") int quantity,
 			@RequestParam("date") String date) throws ParseException {
@@ -151,7 +157,28 @@ public class ZoneController {
 		
 		return new RedirectView("/zones/"+id + "/details");
 	}
+	@PostMapping("/modifierplantagee/{id}")
+	public RedirectView modifierPlantage(@PathVariable("id") long id, @RequestParam("plante_id") long plante_id, @RequestParam("quantity") int quantity,
+									@RequestParam("date") String date) throws ParseException {
 
+		Date d = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+
+		if(quantity < 0)
+			return new RedirectView("/zones/plantage/"+id);
+
+
+		Plante plante = planteService.get(plante_id);
+		Zone zone = zoneService.get(id);
+		Plantage plantage = new Plantage();
+		plantage.setNombre(quantity);
+		plantage.setDate(d);
+		plantage.setPlante(plante);
+		plantage = plantageService.savePlantage(plantage);
+		zone.getPlantages().add(plantage);
+		zoneService.saveZone(zone);
+
+		return new RedirectView("/zones/"+id + "/details");
+	}
 	/*@GetMapping("/update/{id}")
 	public String updateZone(@PathVariable long id, Model model) {
 		Zone zone = zoneService.get(id);

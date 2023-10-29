@@ -140,7 +140,7 @@
                                         <td th:text="${#dates.format(watering.date, 'dd-MMM-yyyy')}"></td>
                                         <td th:text="${watering.litresEau + ' liters'}"></td>
                                         <td>
-                                            <a th:href="@{'/zones/' + ${zone.id} + '/edit-watering/' + ${watering.id}}" class="btn btn-info" style="color: white;">Edit</a>
+                                            <a th:href="@{'/zones/' + ${zone.id} + '/modifier-arrosage/' + ${watering.id}}" class="btn btn-info" style="color: white;">Edit</a>
                                         </td>
                                     </tr>
                                     </tbody>

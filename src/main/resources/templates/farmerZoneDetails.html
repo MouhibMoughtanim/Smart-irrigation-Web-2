@@ -54,8 +54,8 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <a th:href="@{/farmer/zones/{id}/metrics (id=${zone.id})}" class="btn btn-default">Metrics</a>
-                                    <a th:href="@{/farmer/zones/{id}/controllers (id=${zone.id})}" class="btn btn-dark">Controllers</a>
+                                    <a th:href="@{/farmer/zones/{id}/grandeurs (id=${zone.id})}" class="btn btn-default">Metrics</a>
+                                    <a th:href="@{/farmer/zones/{id}/boitiers (id=${zone.id})}" class="btn btn-dark">Boxes</a>
                                     <a th:href="@{/farmer/zones/update/{id} (id=${zone.id})}" class="btn btn-info">Modify</a>
                                 </div>
                             </div>
@@ -67,7 +67,7 @@
                                 <h2>Irrigation Record</h2>
                             </div>
                             <div class="body">
-                                <form th:action="@{/farmer/zones/{id}/irrigation (id=${zone.id})}" method="post" class="body">
+                                <form th:action="@{/farmer/zones/{id}/arrosage (id=${zone.id})}" method="post" class="body">
                                     <input type="hidden" name="_csrf" value="024b210c-eda8-41a5-9eba-e932bc5857af">
                                     <div class="row clearfix">
                                         <div class="col-lg-12">
@@ -102,11 +102,11 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr th:each="irrigation : ${zone.irrigations}">
+                                        <tr th:each="irrigation : ${zone.arrosages}">
                                             <td th:text="${#dates.format(irrigation.date, 'dd-MMM-yyyy')}"></td>
                                             <td th:text="${irrigation.litresEau + ' liters'}"></td>
                                             <td>
-                                                <a th:href="@{'/farmer/zones/' + ${zone.id} + '/modify-irrigation/' + ${irrigation.id}}" class="btn btn-info" style="color: white;">Modify</a>
+                                                <a th:href="@{'/farmer/zones/' + ${zone.id} + '/modifier-arrosage/' + ${irrigation.id}}" class="btn btn-info" style="color: white;">Modify</a>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -132,15 +132,15 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr th:each="planting : ${zone.plantings}">
+                                        <tr th:each="planting : ${zone.plantages}">
                                             <td scope="row">
                                                 <div class="mr-3">
-                                                    <img th:src="${planting.plant.image}" class="rounded" alt=""/>
+                                                    <img th:src="${planting.plante.image}" class="rounded" alt=""/>
                                                 </div>
                                             </td>
-                                            <td th:text="${planting.plant.libelle + ' - ' + planting.plant.racine}"></td>
+                                            <td th:text="${planting.plante.libelle + ' - ' + planting.plante.racine}"></td>
                                             <td th:text="${#dates.format(planting.date, 'dd-MMM-yyyy')}"></td>
-                                            <td th:text="${planting.number}"></td>
+                                            <td th:text="${planting.nombre}"></td>
                                         </tr>
                                         </tbody>
                                     </table>

@@ -82,8 +82,8 @@
                                             <td>
                                                 <div style="display: flex;">
                                                     <a th:href="@{/farmer/zones/{id}/details (id=${zone.id})}" class="btn btn-default">Details</a>
-                                                    <a th:href="@{/farmer/zones/planting/{id}  (id=${zone.id})}" class="btn btn-success">Plant</a>
-                                                    <a th:href="@{/farmer/zones/{id}/boitiers (id=${zone.id})}" class="btn btn-info">Device</a>
+                                                    <a th:href="@{/farmer/zones/plantage/{id}  (id=${zone.id})}" class="btn btn-success">Plant</a>
+                                                    <a th:href="@{/farmer/zones/{id}/boitiers (id=${zone.id})}" class="btn btn-info">Box</a>
                                                     <button th:value="${zone.id}" onclick="showDeleteConfirmation(this.value)" class="btn btn-danger btn-filter deleteButton">Delete</button>
                                                 </div>
                                             </td>

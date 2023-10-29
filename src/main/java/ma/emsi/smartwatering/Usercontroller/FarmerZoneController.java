@@ -236,7 +236,13 @@ public class FarmerZoneController {
 		model.addAttribute("plantes", plantes);
 		return "farmerZonePlante.html";
 	}
-
+	@GetMapping("/planting/{id}")
+	public String newPlantee(Model model, @PathVariable long id) {
+		List<Plante> plantes = planteService.getPlante();
+		model.addAttribute("zone_id", id);
+		model.addAttribute("plantes", plantes);
+		return "farmerZonePlante.html";
+	}
 	@PostMapping("/plantage/{id}")
 	public RedirectView addPlantage(@PathVariable("id") long id, @RequestParam("plante_id") long plante_id, @RequestParam("quantity") int quantity,
 									@RequestParam("date") String date) throws ParseException {
