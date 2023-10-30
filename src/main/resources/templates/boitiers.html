@@ -47,7 +47,7 @@
                             <div class="header">
                                 <h2>Edit Box</h2>
                             </div>
-                            <form th:if="${updateBoitier != null}" enctype="multipart/form-data" method="post" th:action="@{/boitiers/update/{id} (id=${updateBoitier.id})}" class="body">
+                            <div th:if="${updateBoitier != null}" enctype="multipart/form-data" method="post" th:action="@{/boitiers/update/{id} (id=${updateBoitier.id})}" class="body">
                                 <div class="row clearfix">
                                     <div class="col-md-12">
                                         <div class="form-group c_form_group">
@@ -62,7 +62,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-12">
-                                        <div class "form-group c_form_group">
+                                        <div class="form-group c_form_group">
                                         <label>Code</label>
                                         <input name="code" type="text" class="form-control"  th:value="${updateBoitier.code}" placeholder="code">
                                     </div>
@@ -78,6 +78,7 @@
                                         <button id="submitButton" type="submit" class="btn btn-primary theme-bg gradient">Add</button>
                                     </div>
                                 </div>
+                            </div>
                         </div>
                         </form>
                         <form th:unless="${updateBoitier != null}" enctype="multipart/form-data" method="post" th:action="@{/boitiers}" class="body">
@@ -97,7 +98,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group c_form_group">
                                         <label>Code</label>
-                                        <input name="code" type "text" class="form-control" placeholder="code">
+                                        <input name="code" type="text" class="form-control" placeholder="code">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
