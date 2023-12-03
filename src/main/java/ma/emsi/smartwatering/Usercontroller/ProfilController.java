@@ -52,7 +52,7 @@ public class ProfilController {
 	public String updateUser(Model model) {
 		AppUser user = userService.currentUser();
 	    model.addAttribute("user", user);
-		return "updateUser.html";
+		return "updateUser1.html";
 	}
 
 		
