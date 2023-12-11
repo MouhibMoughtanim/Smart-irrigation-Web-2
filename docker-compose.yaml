@@ -16,16 +16,15 @@ services:
       - .m2:/root/.m2
 
   mysqldb:
-    image: "mysql"
-    restart: always
-    ports:
-      - 3305:3306
-    networks:
-      - springapimysql-net
+    image: mysql:latest
+    restart: unless-stopped
+   # env_file: ./.env
     environment:
-      MYSQL_DATABASE: smartwateringV2
-      MYSQL_USER: mouhib
-      MYSQL_PASSWORD: azerty
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+    ports:
+      - "3306:3306"
+    volumes:
+      - db:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 networks:
   springapimysql-net:
