@@ -26,6 +26,7 @@ public class AuthController {
 	public RedirectView redirectUser() {
 		System.out.println("Redirect");
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println(authentication);
 		boolean admin = authentication.getAuthorities().stream()
 				.anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
 		if(admin)

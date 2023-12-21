@@ -14,7 +14,7 @@ public class NoPopupBasicAuthenticationEntryPoint implements AuthenticationEntry
 	@Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
         AuthenticationException authException) throws IOException, ServletException {
-    
+    System.out.println("salma");
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
     }
 

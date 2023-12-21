@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -20,15 +22,18 @@ import lombok.extern.slf4j.Slf4j;
 import ma.emsi.smartwatering.model.AppUser;
 import ma.emsi.smartwatering.repository.AppUserRepository;
 
-@Service @RequiredArgsConstructor @Transactional @Slf4j
+@Service  @Transactional @Slf4j @Primary
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+
 public class AppUserServiceImpl implements AppUserService {
-	
+
 	@Autowired
 	private AppUserRepository userRepo;
-	
+
 	@Autowired
+	@Qualifier("primaryPasswordEncoder")
 	PasswordEncoder passwordEncoder;
-	
+
 	@Override
 	public AppUser currentUser(){
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -38,27 +43,27 @@ public class AppUserServiceImpl implements AppUserService {
 		} else {
 		  username = principal.toString();
 		}
-		
+
 		return getUser(username);
 	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		AppUser user = userRepo.findByUsername(username);
-		
-		
+
+
 		if (user == null)
 			 throw new UsernameNotFoundException("Nom d'utilisateur ou mot de passe erroné");
-		
-			 
+
+
 		List<String> roles = new ArrayList<String>();
 		roles.add(user.getRole());
-	
-		 
-		return new User(user.getUsername(), user.getPassword(), roles.stream().map(r -> new SimpleGrantedAuthority("ROLE_"+r)).collect(Collectors.toList())); 
-		
+
+
+		return new User(user.getUsername(), user.getPassword(), roles.stream().map(r -> new SimpleGrantedAuthority("ROLE_"+r)).collect(Collectors.toList()));
+
 	}
-	
+
 	@Override
 	public AppUser saveUser(AppUser user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
