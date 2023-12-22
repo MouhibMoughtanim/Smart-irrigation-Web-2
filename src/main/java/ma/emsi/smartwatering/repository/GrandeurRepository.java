@@ -11,7 +11,7 @@ import ma.emsi.smartwatering.model.Zone;
 
 public interface GrandeurRepository extends JpaRepository<Grandeur, Long>{
 
-	@Query(value = "SELECT * FROM `grandeur` where zone_id = :zone_id and type = \"HM\" ORDER BY ID DESC LIMIT 20", nativeQuery = true)
+	@Query(value = "SELECT * FROM `grandeur` where zone_id = :zone_id ", nativeQuery = true)
 	List<Grandeur> getGrandeurByZone(long zone_id);
 }
 	

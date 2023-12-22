@@ -10,23 +10,17 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+import ma.emsi.smartwatering.model.*;
+import ma.emsi.smartwatering.repository.GrandeurRepository;
+import ma.emsi.smartwatering.repository.ZoneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
-import ma.emsi.smartwatering.model.AppUser;
-import ma.emsi.smartwatering.model.Boitier;
-import ma.emsi.smartwatering.model.Capteur;
-import ma.emsi.smartwatering.model.Connection;
-import ma.emsi.smartwatering.model.Installation;
-import ma.emsi.smartwatering.model.Zone;
 import ma.emsi.smartwatering.service.AppUserService;
 import ma.emsi.smartwatering.service.BoitierService;
 import ma.emsi.smartwatering.service.CapteurService;
@@ -44,6 +38,10 @@ public class FarmerCapteurController {
 	private BoitierService boiterService;
 	@Autowired
 	private ConnectionService connectionService;
+	@Autowired
+	private GrandeurRepository grandeurRepository;
+	@Autowired
+	private ZoneRepository zoneRepository;
 	
 	public static String uploadDirectory = System.getProperty("user.dir")+"/src/main/uploads";
 	
@@ -70,8 +68,32 @@ public class FarmerCapteurController {
 		
 		return "farmerCapteurs.html";
 	}
-	
-	
+
+
+	@PostMapping("/receive")
+	public ResponseEntity<String> receiveSensorData(@RequestBody Grandeur grandeur) {
+		try {
+			// Set the current date and time before saving
+			grandeur.setDateTime(new Date()); // or LocalDateTime.now() if using Java 8 or later
+
+			// Assuming you have a Zone instance with id 67
+			Zone zone = zoneRepository.findById(67L).orElseThrow(() -> new RuntimeException("Zone not found"));
+
+			// Set the Zone on the Grandeur instance
+			grandeur.setZone(zone);
+
+			// Assuming GrandeurRepository has a save method
+			grandeurRepository.save(grandeur);
+
+			return ResponseEntity.ok("Sensor data received successfully");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(500).body("Error processing sensor data");
+		}
+	}
+
+
+
 	@PostMapping("/update/{id}")
 	public RedirectView update(Model model,@PathVariable long id,
 			@RequestParam("type") String type, @RequestParam("image") MultipartFile file) {	

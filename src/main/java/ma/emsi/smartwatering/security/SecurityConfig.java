@@ -45,8 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		 .authenticationEntryPoint(new NoPopupBasicAuthenticationEntryPoint())
 		 .and().authorizeRequests()
 		 	.mvcMatchers("/inscription","/register", "/plantes", "/uploads", "/grandeurs/**", "/uploads/**","/","/login", "/logout", "/images/**", "/vendor/**",
-		 			"/js/**", "/bundles/**", "/charts/**", "/vendor/**", "/css/**").permitAll()
-		 	.mvcMatchers(  "/zones/grandeurs/**","/realtime/**", "/farmer", "/farmer/**", "/api/farmer/**").hasRole("USER")
+		 			"/js/**", "/bundles/**", "/charts/**", "/vendor/**", "/css/**","/farmer/capteurs/receive").permitAll()
+		 	.mvcMatchers(  "/zones/grandeurs/**","/realtime/**", "/farmer", "/farmer/**", "/api/farmer/**","farmer/capteurs/receive/**").hasRole("USER")
 					.mvcMatchers("/users/update/**","/plantes","/plantes/new","/plantes/**").access("hasRole('USER') or hasRole('ADMIN')")
 
 		 	.mvcMatchers("/zones/grandeurs/**", "/**", "/api/**").hasRole("ADMIN")

@@ -12,6 +12,8 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,48 +26,55 @@ public class Zone {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String libelle;
-	
-	@Column(nullable = true)
-    private float superficie;
 
-    @Lob
-    @Column(name = "photo", nullable = true)
+	@Column(nullable = true)
+	private float superficie;
+
+	@Lob
+	@Column(name = "photo", nullable = true)
 	private String image;
-    
-    @ManyToOne
+
+	@ManyToOne
 	@JoinColumn(name="type_id", nullable = true)
 	private SolType type;
-    
-    @OneToMany
-    private List<Plantage> plantages;
-    
-    @OneToMany
-    private List<Arrosage> arrosages;
-    
-    @OneToMany
-    private List<Installation> installations;
-    
-    @OneToMany
+
+	@OneToMany
+	private List<Plantage> plantages;
+
+	@OneToMany
+	private List<Arrosage> arrosages;
+
+	@OneToMany
+	private List<Installation> installations;
+
+	@OneToMany
+	@JsonIgnoreProperties("zone")
 	@JoinColumn(name="zone_id")
-    private List<Grandeur> grandeurs;
-    
-    @OneToMany
+	private List<Grandeur> grandeurs;
+
+	@OneToMany
 	@JoinColumn(name="zone_id")
-    private List<Notification> notifications;
-	
-    
-    public Installation getUActualBoitier() {
-    	
-    	if(this.installations.size() == 0)
-    		return null;
-    	
-    	Installation lastInstallation = this.installations.get(installations.size()-1);
-    	
-    	if(lastInstallation.getDateFin() == null) {
-    		return lastInstallation;
-    	}
+	private List<Notification> notifications;
+
+
+	public Installation getUActualBoitier() {
+
+		if(this.installations.size() == 0)
+			return null;
+
+		Installation lastInstallation = this.installations.get(installations.size()-1);
+
+		if(lastInstallation.getDateFin() == null) {
+			return lastInstallation;
+		}
 
 		return null;
-    	
-    }
+
+	}
+	@Override
+	public String toString() {
+		return "Zone{id=" + id + ", libelle='" + libelle + '\'' + ", superficie=" + superficie + '}';
+	}
+
+
 }
