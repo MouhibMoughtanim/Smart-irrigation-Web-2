@@ -1,6 +1,6 @@
-package ma.emsi.smartwatering.api;
-import ma.emsi.smartwatering.model.mesure;
-import ma.emsi.smartwatering.service.MesureService;
+package ma.smartwatering.api;
+import ma.smartwatering.model.mesure;
+import ma.smartwatering.service.MesureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

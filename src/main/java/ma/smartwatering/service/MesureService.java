@@ -1,7 +1,7 @@
-package ma.emsi.smartwatering.service;
+package ma.smartwatering.service;
 
-import ma.emsi.smartwatering.model.mesure;
-import ma.emsi.smartwatering.repository.MesureRepository;
+import ma.smartwatering.model.mesure;
+import ma.smartwatering.repository.MesureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
