@@ -1,6 +1,6 @@
-package ma.smartwatering.repository;
+package ma.emsi.smartwatering.repository;
 
-import ma.smartwatering.model.mesure;
+import ma.emsi.smartwatering.model.mesure;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

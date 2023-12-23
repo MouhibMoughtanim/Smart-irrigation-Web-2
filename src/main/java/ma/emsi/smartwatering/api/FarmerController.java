@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import ma.smartwatering.service.AppUserService1;
-import ma.smartwatering.model.*;
-import ma.smartwatering.repository.AppUserRepository;
-import ma.smartwatering.service.EspaceVertService;
+import ma.emsi.smartwatering.service.AppUserService1;
+import ma.emsi.smartwatering.model.*;
+import ma.emsi.smartwatering.repository.AppUserRepository;
+import ma.emsi.smartwatering.service.EspaceVertService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

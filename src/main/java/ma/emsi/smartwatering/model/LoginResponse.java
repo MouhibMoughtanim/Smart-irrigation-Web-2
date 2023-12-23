@@ -1,4 +1,4 @@
-package ma.smartwatering.model;
+package ma.emsi.smartwatering.model;
 
 
 public class LoginResponse {

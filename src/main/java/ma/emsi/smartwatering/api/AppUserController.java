@@ -35,10 +35,10 @@ import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.RequiredArgsConstructor;
-import ma.smartwatering.model.AppUser;
-import ma.smartwatering.model.EspaceVert;
-import ma.smartwatering.service.AppUserService;
-import ma.smartwatering.service.EspaceVertService;
+import ma.emsi.smartwatering.model.AppUser;
+import ma.emsi.smartwatering.model.EspaceVert;
+import ma.emsi.smartwatering.service.AppUserService;
+import ma.emsi.smartwatering.service.EspaceVertService;
 
 @RestController @RequestMapping("/api/users")  @RequiredArgsConstructor
 public class AppUserController {

@@ -1,11 +1,11 @@
-package ma.smartwatering.service;
+package ma.emsi.smartwatering.service;
 
 import java.beans.ConstructorProperties;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import ma.smartwatering.model.AppUser;
+import ma.emsi.smartwatering.model.AppUser;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.extern.slf4j.Slf4j;
-import ma.smartwatering.model.AppUser;
-import ma.smartwatering.repository.AppUserRepository;
+import ma.emsi.smartwatering.model.AppUser;
+import ma.emsi.smartwatering.repository.AppUserRepository;
 
 @Service @Transactional @Slf4j
 public class AppUserServiceImpl1 implements AppUserService1, UserDetailsService{

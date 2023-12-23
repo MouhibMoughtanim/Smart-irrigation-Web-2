@@ -1,6 +1,6 @@
-package ma.smartwatering.security;
+package ma.emsi.smartwatering.security;
 
-import ma.smartwatering.security.NoPopupBasicAuthenticationEntryPoint;
+import ma.emsi.smartwatering.security.NoPopupBasicAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;

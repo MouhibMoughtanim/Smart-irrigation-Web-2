@@ -2,8 +2,8 @@ package ma.emsi.smartwatering.service;
 
 import java.util.List;
 
-import ma.smartwatering.model.AppUser;
-import ma.smartwatering.model.AppUser;
+import ma.emsi.smartwatering.model.AppUser;
+import ma.emsi.smartwatering.model.AppUser;
 
 public interface AppUserService1 {
 

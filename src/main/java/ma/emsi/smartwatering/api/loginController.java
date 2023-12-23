@@ -1,9 +1,9 @@
 package ma.emsi.smartwatering.api;
 
-import ma.smartwatering.model.AppUser;
-import ma.smartwatering.model.LoginResponse;
-import ma.smartwatering.repository.AppUserRepository;
-import ma.smartwatering.service.AppUserService;
+import ma.emsi.smartwatering.model.AppUser;
+import ma.emsi.smartwatering.model.LoginResponse;
+import ma.emsi.smartwatering.repository.AppUserRepository;
+import ma.emsi.smartwatering.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
