@@ -8,7 +8,6 @@ pipeline {
 
     tools {
         maven 'maven-3.9.6'
-        docker 'docker' // 'docker' should match the Docker installation name in your Jenkins configuration
     }
 
     stages {
