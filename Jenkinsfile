@@ -1,4 +1,9 @@
 pipeline {
+    environment {
+        registry = "mouhibmoughtanim/smartirrigation"
+        registryCredential = 'dockerhub_id'
+        dockerImage=''
+    }
     agent any
 
     tools {
@@ -28,21 +33,22 @@ pipeline {
             }
         }
 
-        stage('Docker Publish') {
+        stage('Building our image') {
             steps {
                 script {
-                    // Build and tag the Docker image
-                    sh 'docker build -t your-docker-username/your-image-name:latest .'
-
-                    // Authenticate with Docker Hub
-                    withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                        sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-                    }
-
-                    // Push the Docker image to Docker Hub
-                    sh 'docker push your-docker-username/your-image-name:latest'
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 }
             }
-}
-}
+        }
+
+        stage('Deploy our image') {
+            steps {
+                script {
+                    docker.withRegistry('', registryCredential) {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+    }
 }
