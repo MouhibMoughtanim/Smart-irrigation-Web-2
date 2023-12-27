@@ -53,7 +53,7 @@ pipeline {
        stage('Run Ansible Playbook') {
             steps {
                 script {
-                    ansiblePlaybook playbook: 'home/Desktop/playbook.yml'
+                    ansiblePlaybook playbook: 'home/playbook.yml'
                 }
             }
         }
