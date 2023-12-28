@@ -1,9 +1,12 @@
 package ma.emsi.smartwatering.api;
 
 import ma.emsi.smartwatering.model.AppUser;
+import ma.emsi.smartwatering.model.EspaceVert;
 import ma.emsi.smartwatering.model.LoginResponse;
 import ma.emsi.smartwatering.repository.AppUserRepository;
 import ma.emsi.smartwatering.service.AppUserService;
+import ma.emsi.smartwatering.service.EspaceVertService;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +17,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api")
@@ -24,27 +29,63 @@ public class loginController {
     private AppUserRepository userRepo;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    EspaceVertService espaceService;
+
 
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@RequestBody Map<String,String> loginRequest) {
-        String username = loginRequest.get("username");
-        String password = loginRequest.get("password");
+    public ResponseEntity<?> authenticateUser(@RequestBody Map<String, String> loginRequest) {
+        try {
+            String username = loginRequest.get("username");
+            String password = loginRequest.get("password");
 
-        // Your authentication logic here
-        // Authenticate the user based on the provided username and password
-        System.out.println(loginRequest);
+            System.out.println(loginRequest);
 
-        AppUser user = userRepo.findByUsername(username);
-        if (user != null && passwordEncoder.matches(password, user.getPassword())) {
-            // Authentication successful
-            return ResponseEntity.ok(user);
-        } else {
+            // Your authentication logic here
+            AppUser user = userRepo.findByUsername(username);
+
+            System.out.println(user);
+
+            if (user != null && passwordEncoder.matches(password, user.getPassword())) {
+                // Authentication successful
+
+                if ("USER".equals(user.getRole())) {
+                    // If the user is a regular user, return user details
+                    System.out.println(user.getId());
+                    List<EspaceVert> ss=getAllEspacesVerts();
+                    reponse loginResponse = new reponse();
+                    loginResponse.setUser(user);
+                    loginResponse.setEspacesVerts(ss);
+
+                    return ResponseEntity.ok(loginResponse);
+                } else if ("ADMIN".equals(user.getRole())) {
+                    // If the user is an admin, return user details and all espaces verts
+                    System.out.println(user.getId());
+                    List<EspaceVert> ss=getAllEspacesVerts();
+                    reponse loginResponse = new reponse();
+                    loginResponse.setUser(user);
+                    loginResponse.setEspacesVerts(ss);
+
+                    return ResponseEntity.ok(loginResponse);
+                }
+            }
+
             // Authentication failed
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
-        }
 
+        } catch (Exception e) {
+            System.out.println(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error");
+        }
     }
+
+    private List<EspaceVert> getAllEspacesVerts() {
+        // Implement logic to retrieve all espaces verts from the database
+        // For example, you can use a repository method to fetch all espaces verts
+        return espaceService.getEspacesVerts();
+    }
+
 
     // Implement your access token generation logic here
     private String generateAccessToken() {

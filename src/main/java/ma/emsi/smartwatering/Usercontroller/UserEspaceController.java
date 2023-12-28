@@ -66,7 +66,7 @@ public class UserEspaceController {
 		AppUser user = userService.currentUser();
 		
 		user.getEspacesVerts().add(newEspace);
-		userService.saveUser(user);
+		userService.saveUser1(user);
 		
 		
 		return new RedirectView("/farmer");

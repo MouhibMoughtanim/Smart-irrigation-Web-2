@@ -48,18 +48,17 @@ public class AuthController {
 	}
 
 	@PostMapping("register")
-	public RedirectView AddUser(@RequestParam("username") String username, @RequestParam("password") String password,
-								@RequestParam("confirmation") String confirmation ) {
-
-		if(password.equals(confirmation)) {
+	public RedirectView AddUser(@RequestParam("username") String username,
+								@RequestParam("password") String password,
+								@RequestParam("confirmation") String confirmation,
+								@RequestParam("role") String role) {
+		if (password.equals(confirmation)) {
 			AppUser newUser = new AppUser();
 			newUser.setPassword(password);
 			newUser.setUsername(username);
-			newUser.setRole("USER");
+			newUser.setRole(role);
 			userService.saveUser(newUser);
-
 		}
-
 		return new RedirectView("/login");
 	}
 

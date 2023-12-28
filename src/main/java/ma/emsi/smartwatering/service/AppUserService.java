@@ -9,7 +9,8 @@ import ma.emsi.smartwatering.model.AppUser;
 public interface AppUserService extends UserDetailsService {
 	
 	AppUser saveUser(AppUser user);
-	
+	AppUser saveUser1(AppUser user);
+
 	AppUser getUser(String username);
 	
 	List<AppUser> getUsers();

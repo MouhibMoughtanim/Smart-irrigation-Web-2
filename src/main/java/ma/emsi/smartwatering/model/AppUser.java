@@ -1,5 +1,6 @@
 package ma.emsi.smartwatering.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -15,7 +16,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity  @Data @NoArgsConstructor @AllArgsConstructor
-public class AppUser {
+public class AppUser implements Serializable {
 	
 	@Id @GeneratedValue(strategy = GenerationType.AUTO	)
 	private long id;

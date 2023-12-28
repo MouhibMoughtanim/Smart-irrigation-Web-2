@@ -108,7 +108,7 @@ public class UserController {
 	
 	@PostMapping("/espaces")
 	public RedirectView userEspaces(@RequestParam("user_id") long user_id, @RequestParam("espace_id") long espace_id) {
-		
+		System.out.println(user_id);
 		AppUser user = userService.getUser(user_id);
 		EspaceVert espace = espaceService.get(espace_id);
 		
