@@ -116,7 +116,7 @@ public class UserController {
 		System.out.println(espace);
 		user.getEspacesVerts().add(espace);
 		System.out.println(user.getEspacesVerts());
-		userService.saveUser(user);
+		userService.saveUser1(user);
 		
 		return new RedirectView("/users/espaces");
 		
@@ -132,7 +132,7 @@ public class UserController {
 		System.out.println(espace);
 		user.getEspacesVerts().remove(espace);
 		System.out.println(user.getEspacesVerts());
-		userService.saveUser(user);
+		userService.saveUser1(user);
 		
 		return new RedirectView("/users/espaces");
 		

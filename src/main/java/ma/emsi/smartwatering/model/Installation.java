@@ -25,9 +25,13 @@ public class Installation {
 	@ManyToOne
     @JoinColumn(name="boitier_id")
 	private Boitier boitier;
-	
+	//public void in() {
+
+	//	dateFin = new Date();
+	//}
 	
 	public void desinstaller() {
+
 		dateFin = new Date();
 	}
 }

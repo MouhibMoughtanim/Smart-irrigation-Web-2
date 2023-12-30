@@ -131,19 +131,37 @@ public class EspaceVertControllerWeb {
 
 	}
 	
-	@GetMapping("/responsable/{id}")
+	@GetMapping("/responsible/{id}")
 	public RedirectView getResponsable(@PathVariable("id") long id) {
 		List<AppUser> users = userService.getUsers();
 		for(AppUser user : users) {
 			for(EspaceVert espace: user.getEspacesVerts()) {
 				if(espace.getId() == id) {
 					return new RedirectView("/users/details/"+ user.getId());
+				}else{
+					System.out.println("jj");
 				}
+
 			}
 		}
 		return new RedirectView("/users/espaces");
 	}
-	
+	@GetMapping("/responsable/{id}")
+	public RedirectView getResponsablee(@PathVariable("id") long id) {
+		List<AppUser> users = userService.getUsers();
+		for(AppUser user : users) {
+			for(EspaceVert espace: user.getEspacesVerts()) {
+				if(espace.getId() == id) {
+					return new RedirectView("/users/details/"+ user.getId());
+				}else{
+					System.out.println("jj");
+				}
+
+			}
+		}
+		return new RedirectView("/users/espaces");
+	}
+
 	
 	
 	/*

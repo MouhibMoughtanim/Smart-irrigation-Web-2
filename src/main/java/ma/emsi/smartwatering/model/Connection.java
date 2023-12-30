@@ -4,11 +4,14 @@ import java.time.ZonedDateTime;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-@Entity  @Data @NoArgsConstructor @AllArgsConstructor
+@Entity  @Data @NoArgsConstructor @AllArgsConstructor @ToString(exclude = "capteur") // Exclude capteur to avoid potential infinite recursion
+
 public class Connection {
 
 	@Id
@@ -16,18 +19,19 @@ public class Connection {
 	private long id;
 	private boolean fonctionnel;
 	private String branche;
-	
-	@ManyToOne
+	@JsonIgnore
 
-	@JoinColumn(name="capteur_id")
+	@ManyToOne
+	@JoinColumn(name = "capteur_id")
 	private Capteur capteur;
 
 	@Override
 	public String toString() {
 		return "Connection{" +
 				"id=" + id +
-				
-				// Add other fields you want to include in the string representation
+				", fonctionnel=" + fonctionnel +
+				", branche='" + branche + '\'' +
+				", capteur=" + (capteur != null ? capteur.getId() : null) +
 				'}';
 	}
 
