@@ -46,6 +46,8 @@ public class loginController {
             AppUser user = userRepo.findByUsername(username);
 
             System.out.println(user);
+            System.out.println(user.getId());
+            System.out.println(user.getRole());
 
             if (user != null && passwordEncoder.matches(password, user.getPassword())) {
                 // Authentication successful
@@ -54,19 +56,21 @@ public class loginController {
                     // If the user is a regular user, return user details
                     System.out.println(user.getId());
                     List<EspaceVert> ss=getAllEspacesVerts();
+                    System.out.println(ss);
                     reponse loginResponse = new reponse();
                     loginResponse.setUser(user);
                     loginResponse.setEspacesVerts(ss);
-
+                    System.out.println(loginResponse);
                     return ResponseEntity.ok(loginResponse);
                 } else if ("ADMIN".equals(user.getRole())) {
                     // If the user is an admin, return user details and all espaces verts
                     System.out.println(user.getId());
                     List<EspaceVert> ss=getAllEspacesVerts();
+                    System.out.println(ss);
                     reponse loginResponse = new reponse();
                     loginResponse.setUser(user);
                     loginResponse.setEspacesVerts(ss);
-
+                    System.out.println(loginResponse);
                     return ResponseEntity.ok(loginResponse);
                 }
             }

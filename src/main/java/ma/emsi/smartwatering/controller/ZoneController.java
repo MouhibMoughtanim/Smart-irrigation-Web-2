@@ -330,7 +330,6 @@ public class ZoneController {
 		model.addAttribute("boitiers", boitiers);
 		Zone zone = zoneService.get(id);
 		model.addAttribute("zone", zone);
-		
 		return "ZoneBoitiers.html";
 	}
 	@PostMapping("/{zone_id}//delete/{id}")
@@ -358,16 +357,16 @@ public class ZoneController {
 				installationService.saveInstallation(i);
 			}
 		}
-		
 		newInstallation.setBoitier(boitier);
 		newInstallation.setDateDebut(new SimpleDateFormat("yyyy-MM-dd").parse(date));
+	  //  newInstallation.in();
 		installationService.saveInstallation(newInstallation);
-
 		zone.getInstallations().add(newInstallation);
-
+		//zone.getUActualBoitier();
+		Installation uactualBoitier = zone.getUActualBoitier();
+		System.out.println("uactualBoitier: " + uactualBoitier);
 		zoneService.saveZone(zone);
-		
-		return new RedirectView("/zones/"+id+"/boitiers");
+		return new RedirectView("/zones/"+id+"/boitier");
 	}
 
 	@PostMapping("/{zone_id}/uninstall/{id}")
@@ -378,7 +377,7 @@ public class ZoneController {
 		installation.desinstaller();
 		installationService.saveInstallation(installation);
 		
-		return  new RedirectView("/zones/"+zone_id+"/boitiers");
+		return  new RedirectView("/zones/"+zone_id+"/boitier");
 	}
 	@PostMapping("/delete/{id}")
 	public RedirectView deleteZone(@PathVariable long id) {

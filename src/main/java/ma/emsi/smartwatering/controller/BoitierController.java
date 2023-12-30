@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -150,33 +151,48 @@ public class BoitierController {
 		
 		return "boitierDetails.html";
 	}
-	
+
 	@PostMapping("/{id}/capteur")
-	public RedirectView capteur(@PathVariable("id") long id, @RequestParam("capteur_id") long capteur_id, @RequestParam("branche") String branche, @RequestParam("fonctionnel") boolean fonctionnel) {
-		
+	public RedirectView capteur(@PathVariable("id") long id,
+								@RequestParam("capteur_id") long capteur_id,
+								@RequestParam("branche") String branche,
+								@RequestParam("fonctionnel") boolean fonctionnel) {
+
 		Boitier boitier = boitierService.getBoitier(id);
 		Capteur capteur = capteurService.getCapteur(capteur_id);
-		
-		
-		
-		Connection connection = new Connection();
-		connection.setCapteur(capteur);
-		connection.setBranche(branche);
-		connection.setFonctionnel(fonctionnel);
-		connection = connectionService.saveConnection(connection);
-		
-		boitier.getConnections().add(connection);
-		
-		boitierService.saveBoitier(boitier);
-		
+
+		if (boitier != null && capteur != null) {
+			Connection connection = new Connection();
+			connection.setCapteur(capteur);
+			connection.setBranche(branche);
+			connection.setFonctionnel(fonctionnel);
+			connection = connectionService.saveConnection(connection);
+System.out.println(connection);
+			// Ensure the connections list is initialized
+			if (boitier.getConnections() == null) {
+				boitier.setConnections(new ArrayList<>());
+			}
+			System.out.println("ssssssss");
+			System.out.println(boitier.getConnections());
+			boitier.getConnections().add(connection);
+			System.out.println(boitier.getConnections());
+
+			boitierService.saveBoitier(boitier);
+		} else {
+			// Handle the case where boitier or capteur is not found
+			System.err.println("Boitier or Capteur not found");
+		}
+
 		return new RedirectView("/boitiers/details/" + id);
 	}
-	
+
+
 	@GetMapping("/{boitier_id}/on/{id}")
 	public RedirectView turnOn(@PathVariable("id") long id, @PathVariable("boitier_id") long boitier_id) {
 		
 		Connection connection = connectionService.getConnection(id);
-		
+		System.out.println(connection);
+		System.out.println("ssssss");
 		connection.setFonctionnel(true);
 		connectionService.saveConnection(connection);
 		

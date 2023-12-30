@@ -58,19 +58,22 @@ public class Zone {
 
 
 	public Installation getUActualBoitier() {
-
-		if(this.installations.size() == 0)
+		if (this.installations.isEmpty()) {
+			System.out.println("No installations found for Zone " + this.id);
 			return null;
+		}
 
-		Installation lastInstallation = this.installations.get(installations.size()-1);
+		Installation lastInstallation = this.installations.get(this.installations.size() - 1);
 
-		if(lastInstallation.getDateFin() == null) {
+		if (lastInstallation.getDateFin() == null) {
 			return lastInstallation;
+		} else {
+			System.out.println("Last installation for Zone " + this.id + " has a non-null dateFin");
 		}
 
 		return null;
-
 	}
+
 	@Override
 	public String toString() {
 		return "Zone{id=" + id + ", libelle='" + libelle + '\'' + ", superficie=" + superficie + '}';
