@@ -1,6 +1,6 @@
 const queryString = window.location.href;
 const values = queryString.split('/');
-const zone_id = 67;
+const zone_id = 5;
 
 // Data for temperature chart
 let tempDataValues = ['Temperature'];
@@ -155,7 +155,7 @@ sse.onmessage = function (e) {
 	addHumidityData(grandeur.dateTime, grandeur.humidity);
 
 	// Show the notification when temperature exceeds the maximum value
-	if (grandeur.temperature > 22) {
+	if (grandeur.temperature > 50) {
 		showTemperatureExceededNotification(grandeur.dateTime, grandeur.temperature);
 	}
 };

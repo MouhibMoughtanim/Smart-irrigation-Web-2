@@ -277,9 +277,14 @@ public class FarmerZoneController {
 	}*/
 
 	@GetMapping("/{id}/grandeurs")
-	public String grandeurs() {
+	public String grandeurs(@PathVariable("id") Long zoneId, Model model) {
+		// Add the zoneId to the model
+		model.addAttribute("zoneId", zoneId);
+
+		// Return the Thymeleaf template
 		return "grandeursZone2.html";
 	}
+
 
 	@GetMapping("/{id}/details")
 	public String details(@PathVariable("id") long id, Model model) {
