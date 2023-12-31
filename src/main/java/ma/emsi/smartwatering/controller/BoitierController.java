@@ -148,7 +148,20 @@ public class BoitierController {
 		
 		model.addAttribute("boitier", boitier);
 		model.addAttribute("capteurs", capteurs);
-		
+		model.addAttribute("showPopup",false);
+
+		return "boitierDetails.html";
+	}
+	@GetMapping("/detailss/{id}")
+	public String detailss(@PathVariable long id, Model model) {
+
+		Boitier boitier = boitierService.getBoitier(id);
+		List<Capteur> capteurs = capteurService.getCapteurs();
+
+		model.addAttribute("boitier", boitier);
+		model.addAttribute("capteurs", capteurs);
+		model.addAttribute("showPopup",true);
+
 		return "boitierDetails.html";
 	}
 
@@ -156,7 +169,7 @@ public class BoitierController {
 	public RedirectView capteur(@PathVariable("id") long id,
 								@RequestParam("capteur_id") long capteur_id,
 								@RequestParam("branche") String branche,
-								@RequestParam("fonctionnel") boolean fonctionnel) {
+								@RequestParam("fonctionnel") boolean fonctionnel,Model model) {
 
 		Boitier boitier = boitierService.getBoitier(id);
 		Capteur capteur = capteurService.getCapteur(capteur_id);
@@ -179,11 +192,13 @@ public class BoitierController {
 
 				boitier.getConnections().add(connection);
 				boitierService.saveBoitier(boitier);
-			} else {boolean fExists = boitier.getConnections()
-					.stream()
-					.anyMatch(Connection::isFonctionnel);
-				if(!fExists ){
+				return new RedirectView("/boitiers/details/" + id);
 
+			} else {
+				boolean fExists = boitier.getConnections()
+						.stream()
+						.anyMatch(Connection::isFonctionnel);
+				if(!fExists ){
 
 					Connection connection = new Connection();
 					connection.setCapteur(capteur);
@@ -197,14 +212,21 @@ public class BoitierController {
 
 					boitier.getConnections().add(connection);
 					boitierService.saveBoitier(boitier);
+					return new RedirectView("/boitiers/details/" + id);
 
-				}	else{				System.err.println("Branch already exists in the connections");
+				}	else{
+
+					System.err.println("Branch already exists in the connections");
+					return new RedirectView("/boitiers/detailss/" + id);
+
 				}
 			}
 		} else {
 			System.err.println("Boitier or Capteur not found");
 		}
+
 		return new RedirectView("/boitiers/details/" + id);
+
 	}
 
 	@GetMapping("/{boitier_id}/on/{id}")

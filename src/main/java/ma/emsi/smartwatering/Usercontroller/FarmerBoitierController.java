@@ -181,7 +181,20 @@ public class FarmerBoitierController {
 		
 		model.addAttribute("boitier", boitier);
 		model.addAttribute("capteurs", capteurs);
-		
+		model.addAttribute("showPopup",false);
+
+		return "farmerBoitierDetails.html";
+	}
+	@GetMapping("/detailss/{id}")
+	public String detailss(@PathVariable long id, Model model) {
+
+		Boitier boitier = boitierService.getBoitier(id);
+		List<Capteur> capteurs = capteurService.getCapteurs();
+
+		model.addAttribute("boitier", boitier);
+		model.addAttribute("capteurs", capteurs);
+		model.addAttribute("showPopup",true);
+
 		return "farmerBoitierDetails.html";
 	}
 
@@ -189,7 +202,7 @@ public class FarmerBoitierController {
 	public RedirectView capteur(@PathVariable("id") long id,
 								@RequestParam("capteur_id") long capteur_id,
 								@RequestParam("branche") String branche,
-								@RequestParam("fonctionnel") boolean fonctionnel) {
+								@RequestParam("fonctionnel") boolean fonctionnel,Model model) {
 
 		Boitier boitier = boitierService.getBoitier(id);
 		Capteur capteur = capteurService.getCapteur(capteur_id);
@@ -212,6 +225,8 @@ public class FarmerBoitierController {
 
 				boitier.getConnections().add(connection);
 				boitierService.saveBoitier(boitier);
+				return new RedirectView("/farmer/boitiers/details/" + id);
+
 			} else {
 				boolean fExists = boitier.getConnections()
 						.stream()
@@ -230,8 +245,13 @@ public class FarmerBoitierController {
 
 					boitier.getConnections().add(connection);
 					boitierService.saveBoitier(boitier);
+					return new RedirectView("/farmer/boitiers/details/" + id);
 
-				}	else{				System.err.println("Branch already exists in the connections");
+				}	else{
+
+					System.err.println("Branch already exists in the connections");
+					return new RedirectView("/farmer/boitiers/detailss/" + id);
+
 				}
 			}
 		} else {

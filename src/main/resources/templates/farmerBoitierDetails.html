@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<html lang="en">
 <head th:replace="fragments/header :: header"></head>
 <body>
 
@@ -8,7 +7,6 @@
 
     <div th:replace="fragments/loader :: loader">
     </div>
-
 
     <!-- Overlay For Sidebars -->
     <div class="overlay"></div>
@@ -21,8 +19,6 @@
         <div th:replace="fragments/sidebar :: sidebar">
         </div>
 
-
-        <!-- Main body part  -->
         <div id="main-content">
             <div class="container-fluid">
                 <!-- Page header section  -->
@@ -54,7 +50,6 @@
                                         <span class="text-light" th:text="${'Type: ' + boitier.type}"></span>
                                         <p class="mb-0" ><span th:text="${'Code: ' + boitier.code}"></span></p>
                                     </div>
-
                                 </div>
                                 <div>
                                     <a th:href="@{/farmer/boitiers/update/{id} (id=${boitier.id})}" class="btn btn-default">Edit</a>
@@ -68,9 +63,9 @@
                                 <h2>Install Sensor</h2>
                             </div>
                             <div class="body">
-                                <form th:action="@{/farmer/boitiers/{id}/capteur (id=${boitier.id})}" method="post" class="body"><input type="hidden" name="_csrf" value="024b210c-eda8-41a5-9eba-e932bc5857af">
+                                <form th:action="@{/farmer/boitiers/{id}/capteur (id=${boitier.id})}" method="post" class="body">
+                                    <input type="hidden" name="_csrf" value="024b210c-eda8-41a5-9eba-e932bc5857af">
                                     <div class="row clearfix">
-
                                         <div class="col-lg-12">
                                             <div class="form-group c_form_group">
                                                 <label>Sensors</label>
@@ -80,9 +75,9 @@
                                                 </select>
                                             </div>
                                         </div>
-
                                         <div class="col-lg-12">
                                             <div class="form-group c_form_group">
+                                                <input type="hidden" name="showPopup" th:value="${showPopup}">
                                                 <label>Branch</label>
                                                 <input name="branche" type="text" class="form-control" placeholder="branch ...'">
                                             </div>
@@ -95,10 +90,9 @@
                                                     <option value="false">No</option>
                                                 </select>
                                             </div>
+                                            <button type="submit" onclick=" showDeleteConfirmation();" class="btn btn-success">Save</button>
                                         </div>
-
                                     </div>
-                                    <button type="submit" class="btn btn-success">Save</button>
                                 </form>
                             </div>
                         </div>
@@ -107,7 +101,6 @@
                         <div class="card">
                             <div class="header">
                                 <h2>Sensors</h2>
-
                             </div>
                             <div class="body">
                                 <div class="table-responsive">
@@ -128,9 +121,10 @@
                                                     max-width: 120px
                                                 }
                                             </style>
-
-                                            <td scope="row"><div class="mr-3">
-                                                <img th:src="${connection.capteur.image}" class="rounded" alt=""/>
+                                            <td scope="row">
+                                                <div class="mr-3">
+                                                    <img th:src="${connection.capteur.image}" class="rounded" alt=""/>
+                                                </div>
                                             </td>
                                             <td th:text="${connection.capteur.type}"></td>
                                             <td th:text="${connection.branche}"></td>
@@ -140,7 +134,6 @@
                                                 <a th:if="${connection.fonctionnel}" th:href="@{/farmer/boitiers/{boitier_id}/off/{id} (boitier_id=${boitier.id}, id=${connection.id})}" style="color: white;" class="btn btn-danger">Deactivate</a>
                                             </td>
                                         </tr>
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -150,12 +143,34 @@
                 </div>
             </div>
         </div>
-
     </div>
-
 </div>
-<div th:replace="fragments/footer :: footer">
+<div th:replace="fragments/footer :: footer"></div>
 
-</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+<script type="text/javascript">
+
+
+    function showDeleteConfirmation() {
+        var showPopup = document.querySelector('input[name="showPopup"]').value;
+        document.querySelector('form').submit();
+
+        console.log(showPopup);
+        if (showPopup === 'true') {
+            Swal.fire({
+                title: 'Warning',
+                text: 'Branch already exists in the connections',
+                icon: 'warning',
+            }).then(() => {
+                window.location.href = '/farmer/boitiers/details/' + id;
+            });
+        } else {
+            console.log('ShowPopup is false.');
+            document.querySelector('form').submit();
+
+        }
+    }
+</script>
 </body>
 </html>
