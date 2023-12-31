@@ -58,13 +58,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="row row-cards">
+
+                <!-- Check if the zoneId is 5 to display the charts -->
+                <div th:if="${zoneId eq 5}" class="row row-cards">
                     <div class="col-md-6"><!-- Use col-md-6 to make the charts take half of the width -->
 
                         <div class="card">
                             <div class="header">
                                 <h2>Humidity</h2>
                             </div>
+
                             <div class="body">
                                 <div id="humidity-chart"></div>
                             </div>
@@ -86,8 +89,6 @@
         </div>
     </div>
 
-
-
 </div>
 <!-- Javascript -->
 <script th:src="@{/bundles/libscripts.bundle.js}"></script>
@@ -98,19 +99,13 @@
 <script th:src="@{/vendor/flot-charts/jquery.flot.time.js}"></script>
 <script th:src="@{/vendor/flot-charts/jquery.flot.selection.js}"></script>
 
-
 <!-- Project core js file minify with grunt -->
 <script th:src="@{/bundles/mainscripts.bundle.js}"></script>
 
 <script th:src="@{/bundles/mainscripts.bundle.js}"></script>
 
 <!-- Add the logic for real-time data updates -->
-
-
-
-
 <script th:src="@{/charts/c3.js}"></script>
-
 
 </div>
 </body>

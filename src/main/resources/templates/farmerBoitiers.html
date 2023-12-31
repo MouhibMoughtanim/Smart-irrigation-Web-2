@@ -41,10 +41,12 @@
                 <div class="row clearfix">
                     <div class="col-xl-3 col-lg-4 col-md-5">
                         <div class="card">
-                            <div class="header">
-                                <h2>Edit Box</h2>
-                            </div>
                             <div th:if="${updateBoitier != null}" enctype="multipart/form-data" method="post" th:action="@{/farmer/boitiers/update/{id} (id=${updateBoitier.id})}" class="body">
+                                <div class="card">
+                                <div class="header">
+                                    <h2>Edit Box</h2>
+                                </div>
+                                </div>
                                 <div class="row clearfix">
                                     <div class="col-md-12">
                                         <div class="form-group c_form_group">
@@ -72,12 +74,15 @@
                                 </div>
                                 <div class="col-lg-3 col-md-4 col-sm-12">
                                     <div class="mb-2">
-                                        <button type="submit" class="btn btn-primary theme-bg gradient">Add</button>
+                                        <button type="submit" class="btn btn-primary theme-bg gradient">Edit</button>
                                     </div>
                                 </div></div>
                         </div>
                         </form>
                         <form th:unless="${updateBoitier != null}" enctype="multipart/form-data" method="post" th:action="@{/farmer/boitiers}" class="body">
+                            <div class="header">
+                                <h2>Add Box</h2>
+                            </div>
                             <div class="row clearfix">
                                 <div class="col-md-12">
                                     <div class="form-group c_form_group">
@@ -113,7 +118,7 @@
                                 </div>
                                 <div class="col-lg-3 col-md-4 col-sm-12">
                                     <div class="mb-2">
-                                        <button type="submit" class="btn btn-primary theme-bg gradient">Edit</button>
+                                        <button type="submit" class="btn btn-primary theme-bg gradient">Add</button>
                                     </div>
                                 </div>
                             </div>

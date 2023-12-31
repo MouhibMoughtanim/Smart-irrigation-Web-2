@@ -77,7 +77,7 @@ public class FarmerCapteurController {
 			grandeur.setDateTime(new Date()); // or LocalDateTime.now() if using Java 8 or later
 
 			// Assuming you have a Zone instance with id 67
-			Zone zone = zoneRepository.findById(67L).orElseThrow(() -> new RuntimeException("Zone not found"));
+			Zone zone = zoneRepository.findById(5L).orElseThrow(() -> new RuntimeException("Zone not found"));
 
 			// Set the Zone on the Grandeur instance
 			grandeur.setZone(zone);
@@ -92,6 +92,32 @@ public class FarmerCapteurController {
 		}
 	}
 
+/*
+@PostMapping("/receive")
+public ResponseEntity<String> receiveSensorData(
+		@RequestParam("zone_id") long zoneId,
+		@RequestBody Grandeur grandeur) {
+	try {
+		// Set the current date and time before saving
+		grandeur.setDateTime(new Date()); // or LocalDateTime.now() if using Java 8 or later
+
+		// Assuming you have a Zone instance with id zoneId
+		Zone zone = zoneRepository.findById(zoneId)
+				.orElseThrow(() -> new RuntimeException("Zone not found"));
+
+		// Set the Zone on the Grandeur instance
+		grandeur.setZone(zone);
+
+		// Assuming GrandeurRepository has a save method
+		grandeurRepository.save(grandeur);
+
+		return ResponseEntity.ok("Sensor data received successfully");
+	} catch (Exception e) {
+		e.printStackTrace();
+		return ResponseEntity.status(500).body("Error processing sensor data");
+	}
+}
+*/
 
 
 	@PostMapping("/update/{id}")
