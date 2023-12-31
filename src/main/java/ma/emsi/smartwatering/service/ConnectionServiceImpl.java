@@ -13,7 +13,11 @@ public class ConnectionServiceImpl implements ConnectionService{
 
 	@Autowired
 	private ConnectionRepository connectionRepo;
-	
+	@Override
+	public boolean existsByBranche(String branche) {
+		return connectionRepo.existsByBranche(branche);
+	}
+
 	@Override
 	public Connection saveConnection(Connection connection) {
 		return connectionRepo.save(connection);

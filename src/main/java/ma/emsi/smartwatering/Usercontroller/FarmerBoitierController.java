@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -183,28 +184,64 @@ public class FarmerBoitierController {
 		
 		return "farmerBoitierDetails.html";
 	}
-	
+
 	@PostMapping("/{id}/capteur")
-	public RedirectView capteur(@PathVariable("id") long id, @RequestParam("capteur_id") long capteur_id, @RequestParam("branche") String branche, @RequestParam("fonctionnel") boolean fonctionnel) {
-		
+	public RedirectView capteur(@PathVariable("id") long id,
+								@RequestParam("capteur_id") long capteur_id,
+								@RequestParam("branche") String branche,
+								@RequestParam("fonctionnel") boolean fonctionnel) {
+
 		Boitier boitier = boitierService.getBoitier(id);
 		Capteur capteur = capteurService.getCapteur(capteur_id);
-		
-		
-		
-		Connection connection = new Connection();
-		connection.setCapteur(capteur);
-		connection.setBranche(branche);
-		connection.setFonctionnel(fonctionnel);
-		connection = connectionService.saveConnection(connection);
-		
-		boitier.getConnections().add(connection);
-		
-		boitierService.saveBoitier(boitier);
-		
+
+		if (boitier != null && capteur != null) {
+			boolean branchExists = boitier.getConnections()
+					.stream()
+					.anyMatch(connection -> connection.getBranche().equals(branche));
+
+			if (!branchExists ) {
+				Connection connection = new Connection();
+				connection.setCapteur(capteur);
+				connection.setBranche(branche);
+				connection.setFonctionnel(fonctionnel);
+				connection = connectionService.saveConnection(connection);
+
+				if (boitier.getConnections() == null) {
+					boitier.setConnections(new ArrayList<>());
+				}
+
+				boitier.getConnections().add(connection);
+				boitierService.saveBoitier(boitier);
+			} else {
+				boolean fExists = boitier.getConnections()
+						.stream()
+						.anyMatch(Connection::isFonctionnel);
+				if(!fExists ){
+
+					Connection connection = new Connection();
+					connection.setCapteur(capteur);
+					connection.setBranche(branche);
+					connection.setFonctionnel(fonctionnel);
+					connection = connectionService.saveConnection(connection);
+
+					if (boitier.getConnections() == null) {
+						boitier.setConnections(new ArrayList<>());
+					}
+
+					boitier.getConnections().add(connection);
+					boitierService.saveBoitier(boitier);
+
+				}	else{				System.err.println("Branch already exists in the connections");
+				}
+			}
+		} else {
+			System.err.println("Boitier or Capteur not found");
+		}
+
 		return new RedirectView("/farmer/boitiers/details/" + id);
+
 	}
-	
+
 	@GetMapping("/{boitier_id}/on/{id}")
 	public RedirectView turnOn(@PathVariable("id") long id, @PathVariable("boitier_id") long boitier_id) {
 		

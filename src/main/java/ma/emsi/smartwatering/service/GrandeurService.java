@@ -11,8 +11,8 @@ public interface GrandeurService {
 	Grandeur saveGrandeur(Grandeur grandeur);
 	
 	List<Grandeur> getGrandeurs();
+	List<Grandeur> getGrandeurByZone(long zone_id);
 
-	Grandeur getGrandeur(long id);
 
 	void supprimer(long id);
 }

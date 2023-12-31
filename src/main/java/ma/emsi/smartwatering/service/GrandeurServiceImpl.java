@@ -23,11 +23,12 @@ public class GrandeurServiceImpl implements GrandeurService{
 	public List<Grandeur> getGrandeurs() {
 		return grandeurRepo.findAll();
 	}
-
 	@Override
-	public Grandeur getGrandeur(long id) {
-		return grandeurRepo.getById(id);
+	public List<Grandeur> getGrandeurByZone(long zone_id){
+		return  grandeurRepo.getGrandeurByZone(zone_id);
 	}
+
+
 
 	@Override
 	public void supprimer(long id) {

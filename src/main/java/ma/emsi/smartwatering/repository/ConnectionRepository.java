@@ -6,6 +6,7 @@ import ma.emsi.smartwatering.model.AppUser;
 import ma.emsi.smartwatering.model.Connection;
 
 public interface ConnectionRepository extends JpaRepository<Connection, Long>{
+    boolean existsByBranche(String branche);
 
 }
 	

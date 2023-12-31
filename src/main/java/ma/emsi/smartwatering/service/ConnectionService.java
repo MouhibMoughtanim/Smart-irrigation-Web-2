@@ -7,7 +7,10 @@ import ma.emsi.smartwatering.model.Connection;
 
 
 public interface ConnectionService {
-	
+
+	 boolean existsByBranche(String branche) ;
+
+
 	Connection saveConnection(Connection connection);
 	
 	List<Connection> getConnections();
