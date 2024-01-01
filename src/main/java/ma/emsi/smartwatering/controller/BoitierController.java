@@ -166,7 +166,7 @@ public class BoitierController {
 	}
 
 	@PostMapping("/{id}/capteur")
-	public RedirectView capteur(@PathVariable("id") long id,
+	public String capteur(@PathVariable("id") long id,
 								@RequestParam("capteur_id") long capteur_id,
 								@RequestParam("branche") String branche,
 								@RequestParam("fonctionnel") boolean fonctionnel,Model model) {
@@ -178,6 +178,13 @@ public class BoitierController {
 			boolean branchExists = boitier.getConnections()
 					.stream()
 					.anyMatch(connection -> connection.getBranche().equals(branche));
+			Boitier boitier2 = boitierService.getBoitier(id);
+			List<Capteur> capteurss = capteurService.getCapteurs();
+			model.addAttribute("boitier", boitier2);
+			model.addAttribute("capteurs", capteurss);
+			model.addAttribute("showPopup",false);
+
+
 
 			if (!branchExists ) {
 				Connection connection = new Connection();
@@ -192,40 +199,32 @@ public class BoitierController {
 
 				boitier.getConnections().add(connection);
 				boitierService.saveBoitier(boitier);
-				return new RedirectView("/boitiers/details/" + id);
+				System.err.println("Branch already exists in the connections");
+				Boitier boitier1 = boitierService.getBoitier(id);
+				List<Capteur> capteurs = capteurService.getCapteurs();
+				model.addAttribute("boitier", boitier1);
+				model.addAttribute("capteurs", capteurs);
+				model.addAttribute("showPopup",false);
+				return "boitierDetails.html";
 
 			} else {
-				boolean fExists = boitier.getConnections()
-						.stream()
-						.anyMatch(Connection::isFonctionnel);
-				if(!fExists ){
-
-					Connection connection = new Connection();
-					connection.setCapteur(capteur);
-					connection.setBranche(branche);
-					connection.setFonctionnel(fonctionnel);
-					connection = connectionService.saveConnection(connection);
-
-					if (boitier.getConnections() == null) {
-						boitier.setConnections(new ArrayList<>());
-					}
-
-					boitier.getConnections().add(connection);
-					boitierService.saveBoitier(boitier);
-					return new RedirectView("/boitiers/details/" + id);
-
-				}	else{
 
 					System.err.println("Branch already exists in the connections");
-					return new RedirectView("/boitiers/detailss/" + id);
+					Boitier boitier1 = boitierService.getBoitier(id);
+					List<Capteur> capteurs = capteurService.getCapteurs();
+					model.addAttribute("boitier", boitier1);
+					model.addAttribute("capteurs", capteurs);
+					model.addAttribute("showPopup",true);
+
+					return "boitierDetails.html";
 
 				}
-			}
+
 		} else {
 			System.err.println("Boitier or Capteur not found");
 		}
 
-		return new RedirectView("/boitiers/details/" + id);
+		return "boitierDetails.html";
 
 	}
 
