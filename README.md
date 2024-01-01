@@ -1,3 +1,11 @@
+# TO TEST THE APP :
+1- Run Docker Desktop
+2- Generate the JAR file "mvn install"
+3- Run the comand : "docker-compose build"
+4- Run the comand : "docker-compose up"
+5- ADMIN LOGIN : admin@admin / PASSWORD : admin@admin
+6- FARMER LOGIN : lachgar / PASSWORD : lachgar
+
 # Smart-irrigation-Web-2
 A- WEB APPLICATION CONFIGURATION
 
