@@ -1,20 +1,6 @@
 version: "3.7"
 
 services:
-  api_service:
-    build: .
-    ports:
-      - 8080:8080
-    environment:
-      - spring.datasource.url=jdbc:mysql://mysqldb:3306/smartwateringv2
-      - spring.datasource.username=root
-      - spring.datasource.password=
-    depends_on:
-      - mysqldb
-    networks:
-      - mynetwork
-    restart: always
-
   mysqldb:
     image: mysql:latest
     ports:
@@ -26,6 +12,31 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - mynetwork
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    restart: always
+
+  api_service:
+    build: .
+    ports:
+      - 8080:8080
+    environment:
+      - spring.datasource.url=jdbc:mysql://mysqldb:3306/smartwateringv2
+      - spring.datasource.username=root
+      - spring.datasource.password=
+      - spring.jpa.show-sql=true
+      - spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+      - spring.jpa.properties.hibernate.format_sql=true
+      - server.max-http-header-size=40KB
+      - spring.main.allow-bean-definition-overriding=true
+      - spring.main.allow-circular-references=true
+    depends_on:
+      - mysqldb
+    networks:
+      - mynetwork
+    restart: always
 
 networks:
   mynetwork:
