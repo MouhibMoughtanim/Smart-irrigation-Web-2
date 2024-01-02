@@ -1,10 +1,11 @@
-# TO TEST THE APP :
-1- Run Docker Desktop --
-2- Generate the JAR file "mvn install" --
-3- Run the comand : "docker-compose build" --
-4- Run the comand : "docker-compose up" --
-5- ADMIN LOGIN : admin@admin / PASSWORD : admin@admin --
-6- FARMER LOGIN : lachgar / PASSWORD : lachgar
+# TO TEST THE APP:
+
+1. Run Docker Desktop
+2. Build the Docker images with the command: `docker-compose build`
+3. Start the application with the command: `docker-compose up`
+4. **ADMIN LOGIN:** Username: `admin@admin` / Password: `admin@admin`
+5. **FARMER LOGIN:** Username: `lachgar` / Password: `lachgar`
+
 
 # Smart-irrigation-Web-2
 A- WEB APPLICATION CONFIGURATION
