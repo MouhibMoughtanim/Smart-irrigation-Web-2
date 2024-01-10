@@ -1,0 +1,99 @@
+#include <WiFi.h>
+#include <HTTPClient.h>
+#include <ArduinoJson.h>
+
+#include <DHT.h> 
+#define DHTPIN 19 // D19 
+#define DHTTYPE DHT11 
+DHT dht11(DHTPIN, DHTTYPE);
+
+String serverAddress = "http://192.168.1.41:8080/farmer/capteurs/receive"; // Adjust the server address
+
+const char* ssid = "Lina Moon";
+const char* password = "2000@2000";
+
+int temperature = 0;
+int humidity = 0;
+
+void setup() {
+  Serial.begin(115200);
+
+  dht11.begin();
+
+  connectWiFi();
+}
+
+void loop() {
+  if (WiFi.status() != WL_CONNECTED) {
+    connectWiFi();
+  }
+
+  loadDHT11Data();
+
+  // Create a JSON document
+  DynamicJsonDocument jsonDocument(200);
+  jsonDocument["temperature"] = temperature;
+  jsonDocument["humidity"] = humidity;
+
+  // Serialize the JSON document to a string
+  String postData;
+  serializeJson(jsonDocument, postData);
+
+  HTTPClient http;
+  http.begin(serverAddress);
+  http.addHeader("Content-Type", "application/json");
+
+  int httpCode = http.POST(postData);
+  String payload = "";
+
+  if (httpCode > 0) {
+    if (httpCode == HTTP_CODE_OK) {
+      payload = http.getString();
+      Serial.println(payload);
+    } else {
+      Serial.printf("[HTTP] POST... code: %d\n", httpCode);
+    }
+  } else {
+    Serial.printf("[HTTP] POST... failed, error: %s\n", http.errorToString(httpCode).c_str());
+  }
+
+  http.end();
+
+  Serial.print("Server Address: "); Serial.println(serverAddress);
+  Serial.print("Data: "); Serial.println(postData);
+  Serial.print("HTTP Code: "); Serial.println(httpCode);
+  Serial.print("Payload: "); Serial.println(payload);
+  Serial.println("--------------------------------------------------");
+  delay(2000);
+}
+
+void loadDHT11Data() {
+  temperature = dht11.readTemperature();
+  humidity = dht11.readHumidity();
+
+  if (isnan(temperature) || isnan(humidity)) {
+    Serial.println("Failed to read from DHT sensor!");
+    temperature = 0;
+    humidity = 0;
+  }
+
+  Serial.printf("Temperature: %d °C\n", temperature);
+  Serial.printf("Humidity: %d %%\n", humidity);
+}
+
+void connectWiFi() {
+  WiFi.mode(WIFI_OFF);
+  delay(1000);
+  WiFi.mode(WIFI_STA);
+
+  WiFi.begin(ssid, password);
+  Serial.println("Connecting to WiFi");
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.print("Connected to: "); Serial.println(ssid);
+  Serial.print("IP Address: "); Serial.println(WiFi.localIP());
+}

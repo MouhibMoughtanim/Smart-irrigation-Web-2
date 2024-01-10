@@ -75,7 +75,8 @@ public class FarmerCapteurController {
 		try {
 			grandeur.setDateTime(new Date());
 
-			Zone zone = zoneRepository.findById(5L).orElseThrow(() -> new RuntimeException("Zone not found"));
+			// Assuming you have a Zone instance with id 67
+			Zone zone = zoneRepository.findById(31L).orElseThrow(() -> new RuntimeException("Zone not found"));
 
 			grandeur.setZone(zone);
 

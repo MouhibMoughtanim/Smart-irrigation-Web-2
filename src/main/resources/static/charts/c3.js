@@ -1,6 +1,6 @@
 const queryString = window.location.href;
 const values = queryString.split('/');
-const zone_id = 5;
+const zone_id = 31;
 
 // Data for temperature chart
 let tempDataValues = ['Temperature'];
