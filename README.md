@@ -6,6 +6,9 @@
 4. **ADMIN LOGIN:** Username: `admin@admin` / Password: `admin@admin`
 5. **FARMER LOGIN:** Username: `lachgar` / Password: `lachgar`
 
+# Demonstration :
+
+https://github.com/MouhibMoughtanim/Smart-irrigation-Web-2/assets/101585977/3994c80f-abee-461e-be59-94737cb30053
 
 # Smart-irrigation-Web-2
 A- WEB APPLICATION CONFIGURATION
