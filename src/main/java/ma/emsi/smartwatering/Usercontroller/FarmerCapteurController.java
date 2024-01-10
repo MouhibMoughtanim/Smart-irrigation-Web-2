@@ -73,16 +73,12 @@ public class FarmerCapteurController {
 	@PostMapping("/receive")
 	public ResponseEntity<String> receiveSensorData(@RequestBody Grandeur grandeur) {
 		try {
-			// Set the current date and time before saving
-			grandeur.setDateTime(new Date()); // or LocalDateTime.now() if using Java 8 or later
+			grandeur.setDateTime(new Date());
 
-			// Assuming you have a Zone instance with id 67
 			Zone zone = zoneRepository.findById(5L).orElseThrow(() -> new RuntimeException("Zone not found"));
 
-			// Set the Zone on the Grandeur instance
 			grandeur.setZone(zone);
 
-			// Assuming GrandeurRepository has a save method
 			grandeurRepository.save(grandeur);
 
 			return ResponseEntity.ok("Sensor data received successfully");

@@ -42,7 +42,6 @@ public class loginController {
 
             System.out.println(loginRequest);
 
-            // Your authentication logic here
             AppUser user = userRepo.findByUsername(username);
 
             System.out.println(user);
@@ -50,10 +49,8 @@ public class loginController {
             System.out.println(user.getRole());
 
             if (user != null && passwordEncoder.matches(password, user.getPassword())) {
-                // Authentication successful
 
                 if ("USER".equals(user.getRole())) {
-                    // If the user is a regular user, return user details
                     System.out.println(user.getId());
                     List<EspaceVert> ss=getAllEspacesVerts();
                     System.out.println(ss);
@@ -63,7 +60,6 @@ public class loginController {
                     System.out.println(loginResponse);
                     return ResponseEntity.ok(loginResponse);
                 } else if ("ADMIN".equals(user.getRole())) {
-                    // If the user is an admin, return user details and all espaces verts
                     System.out.println(user.getId());
                     List<EspaceVert> ss=getAllEspacesVerts();
                     System.out.println(ss);
@@ -75,7 +71,6 @@ public class loginController {
                 }
             }
 
-            // Authentication failed
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
 
         } catch (Exception e) {
@@ -85,18 +80,12 @@ public class loginController {
     }
 
     private List<EspaceVert> getAllEspacesVerts() {
-        // Implement logic to retrieve all espaces verts from the database
-        // For example, you can use a repository method to fetch all espaces verts
+
         return espaceService.getEspacesVerts();
     }
 
 
-    // Implement your access token generation logic here
-    private String generateAccessToken() {
-        // Generate and return the access token
-        // You might want to use JWT or another secure mechanism for generating access tokens
-        return "ss";
-    }
+
     @GetMapping("/details/{id}")
     public String userDetails(@PathVariable long id, Model model) {
         AppUser user = userService.getUser(id);
@@ -108,8 +97,4 @@ public class loginController {
 
 
     }
-
-    // You can create a LoginRequest class to represent the login payload
-    // For example, a simple class with username and password fields:
-
 

@@ -55,48 +55,4 @@ public class AppUserController {
 	}
 	
 
-/*
-	@GetMapping("/token/refresh")
-	public void refrechToken(HttpServletRequest request, HttpServletResponse response) throws StreamWriteException, DatabindException, IOException{
-		String authorizationHeader = request.getHeader("Authorization");
-		if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-			
-			try {
-				String refresh_token = authorizationHeader.substring("Bearer ".length());
-				Algorithm algorithm = Algorithm.HMAC256("emsi_secret".getBytes());
-				JWTVerifier verifier = JWT.require(algorithm).build();
-				DecodedJWT decodedJWT = verifier.verify(refresh_token);
-				String username = decodedJWT.getSubject();
-				
-				AppUser user = userService.getUser(username);
-				
-				String access_token = JWT.create()
-						.withSubject(user.getUsername())
-						.withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
-				.withIssuer(request.getRequestURL().toString())
-				.withClaim("roles", user.getRole())
-				.sign(algorithm);
-				
-				
-				Map<String, String> tokens = new HashMap<>();
-				tokens.put("access_token", access_token);
-				tokens.put("refresh_token", refresh_token);
-				
-				response.setContentType("application/json");
-				new ObjectMapper().writeValue(response.getOutputStream(), tokens);
-			} catch (Exception e) {
-				response.setHeader("error", e.getMessage());
-				
-				Map<String, String> error = new HashMap<>();
-				error.put("error_message", e.getMessage());
-				
-				response.setContentType("application/json");
-				new ObjectMapper().writeValue(response.getOutputStream(), error);
-			}
-			
-		} else {
-			throw new RuntimeException("Refresh token is messing");
-		}
-	}
-	*/
 }

@@ -148,7 +148,7 @@
                                         <td  th:text="${boitier.code}"></td>
                                         <td>
                                             <form method="post" th:action="@{/boitiers/delete/{id} (id=${boitier.id})}" >
-                                                <a th:href="@{/boitiers/details	/{id} (id=${boitier.id})}" class="btn btn-default">Details</a>
+                                                <a th:href="@{/boitiers/details/{id} (id=${boitier.id})}" class="btn btn-default">Details</a>
                                                 <a th:href="@{/boitiers/update/{id} (id=${boitier.id})}" class="btn btn-info" style="color: white;">Edit</a>
                                                 <button type="submit" class="btn btn-danger" style="color: white;">Delete</button>
                                             </form>

@@ -9,6 +9,11 @@ services:
       - spring.datasource.url=jdbc:mysql://mysqldb:3306/smartwateringv2
       - spring.datasource.username=root
       - spring.datasource.password=
+      - spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+      - spring.jpa.properties.hibernate.format_sql=true
+      - server.max-http-header-size=40KB
+      - spring.main.allow-bean-definition-overriding=true
+      - spring.main.allow-circular-references=true
     depends_on:
       - mysqldb
     networks:

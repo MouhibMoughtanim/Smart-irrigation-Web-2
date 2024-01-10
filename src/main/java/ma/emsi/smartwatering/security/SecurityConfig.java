@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 						"/js/**", "/bundles/**", "/charts/**", "/vendor/**", "/css/**","/farmer/capteurs/receive").permitAll()
 				.mvcMatchers(  "/zones/grandeurs/**","/realtime/**", "/farmer", "/farmer/**","farmer/capteurs/receive/**").hasRole("USER")
 				.mvcMatchers("/plantes","/plantes/new","/plantes/**").access("hasRole('USER') or hasRole('ADMIN')")
-				.mvcMatchers("/zones/grandeurs/**").hasRole("ADMIN")
+				.mvcMatchers("/zones/grandeurs/**","/users/list","/users/**","/espaces/**","/boitiers/**","/capteurs/**","/zones/**").hasRole("ADMIN")
 				.antMatchers("/api/login**", "/api/users/token/refresh","/api/**").permitAll()
 				.antMatchers(GET, "/api/farmer", "/api/farmer/**").permitAll()
 				.antMatchers(GET, "/api/users").permitAll()

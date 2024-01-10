@@ -46,7 +46,16 @@ public class GrandeurController {
             return ResponseEntity.ok(mesures);
         }
     }
+    @GetMapping("/m/All1")
+    public ResponseEntity<List<Grandeur>> getMesuresAll1(@PathVariable Long zone_id) {
+        List<Grandeur> mesures = grandeurService.getGrandeurByZone(zone_id);
 
+        if (mesures.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(mesures);
+        }
+    }
 
 
 

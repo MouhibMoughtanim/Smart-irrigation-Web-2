@@ -50,44 +50,6 @@ public class GrandeurApiController {
 	@Autowired
 	ZoneService zoneService;
 	
-	/*
-	@GetMapping("/{zone_id}/{type}/{value}")
-	public String saveUser(@PathVariable("zone_id") long id, @PathVariable("type") String type,@PathVariable("value") float value) throws IOException{
 
-		Grandeur grandeur = new Grandeur();
-
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-		LocalDateTime now = LocalDateTime.now();
-
-		grandeur.setDate(now);
-		grandeur.setValeur(value);
-		grandeur.setType(type);
-		grandeur = grandeurService.saveGrandeur(grandeur);
-		Zone zone = zoneService.get(id);
-		zone.getGrandeurs().add(grandeur);
-
-		zoneService.saveZone(zone);
-
-		RealTimeController.dispatchEventToCleint(id, grandeur);
-
-		return grandeur.toString();
-	}*/
-	/*
-	@GetMapping("/livedata/{valeur}")
-	public String test(@PathVariable("valeur") long valeur) throws IOException{
-
-		Grandeur grandeur = new Grandeur();
-
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-		LocalDateTime now = LocalDateTime.now();
-
-		grandeur.setDate(now);
-		grandeur.setValeur(valeur);
-		grandeur.setType("temp");
-
-		RealTimeController.dispatchEventToCleint(101, grandeur);
-
-		return "testing";
-	}*/
 
 }
