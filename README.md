@@ -30,6 +30,7 @@ To import and run backend and frontend web applications using Spring Tools, foll
 7- Access Web Application: Once both the backend and frontend applications are running, you can access the web application by opening a web browser and navigating to the appropriate URL. This URL will depend on the server and port configuration specified in the backend application and the frontend application's configuration.
 
 B- MOBILE APP CONFIGURATION
+https://github.com/salmaarb/Smart_Irrigation_mobile/assets/119877992/b6dd1ec0-1629-483a-9cd8-a04026e8cc2e
 
 To import and run the mobile application using Android Studio, follow these steps:
 
@@ -37,7 +38,7 @@ To import and run the mobile application using Android Studio, follow these step
 
 Open Android Studio: Launch Android Studio once the installation is complete.
 
-2- Import Project (ArrosageIntellegentV2): Click on "Open an Existing Project" or select "File" from the top menu, then choose "Open" or "Open Project." Browse to the location where your project is stored and select the project folder. Click "OK" to import the project.
+2- Import Project (smart_irrigation_mobile-main): Click on "Open an Existing Project" or select "File" from the top menu, then choose "Open" or "Open Project." Browse to the location where your project is stored and select the project folder. Click "OK" to import the project.
 
 3- Gradle Build: After importing the project, Android Studio will initiate a Gradle build process. This process downloads any necessary dependencies and sets up the project structure. Wait for the build to complete.
 
@@ -63,6 +64,8 @@ This will start the Jupyter Notebook server and open a new tab in your web brows
 4- Run the Notebook Cells: Once the IPython notebook is opened, you'll see individual cells containing code and markdown text. To run a code cell, click on it to select it, then either press the "Run" button in the toolbar at the top or press Shift + Enter. The code in the cell will be executed, and the output (if any) will be displayed below the cell.
 
 5- Continue Running Cells: You can proceed to run the remaining cells in the notebook one by one. If there are any dependencies or cells that need to be run in a specific order, make sure to follow those instructions within the notebook.
+
+
 
 6- Modify and Re-run Cells: You can modify the code or text within the cells as needed. After making changes, re-run the modified cells to see the updated output or results.
 
