@@ -30,7 +30,10 @@ To import and run backend and frontend web applications using Spring Tools, foll
 7- Access Web Application: Once both the backend and frontend applications are running, you can access the web application by opening a web browser and navigating to the appropriate URL. This URL will depend on the server and port configuration specified in the backend application and the frontend application's configuration.
 
 B- MOBILE APP CONFIGURATION
-https://github.com/salmaarb/Smart_Irrigation_mobile/assets/119877992/b6dd1ec0-1629-483a-9cd8-a04026e8cc2e
+
+
+https://github.com/MouhibMoughtanim/Smart-irrigation-Web-2/assets/119877992/f052ba89-c47f-427b-8180-0e4949160bfd
+
 
 To import and run the mobile application using Android Studio, follow these steps:
 
